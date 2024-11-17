@@ -24,6 +24,7 @@ public class Recolte {
     private Saison saison;
 
     private LocalDate dateRecolte;
+
     private double quantiteTotale;
 
     @OneToMany(mappedBy = "recolte", cascade = CascadeType.ALL, orphanRemoval = true)
