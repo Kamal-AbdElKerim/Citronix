@@ -5,6 +5,7 @@ import jakarta.validation.constraints.*;
 import lombok.*;
 
 import java.time.LocalDate;
+import java.util.List;
 
 
 @Entity
@@ -23,6 +24,9 @@ public class Arbre {
     @ManyToOne
     @JoinColumn(name = "champ_id", nullable = false)
     private Champ champ;
+
+    @OneToMany(mappedBy = "arbre")
+    private List<DetailRecolte> detailRecoltes ;
 }
 
 
