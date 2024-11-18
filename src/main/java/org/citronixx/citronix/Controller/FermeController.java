@@ -66,6 +66,9 @@ public class FermeController {
     }
 
 
-   
+    @PostMapping("/search")
+    public List<Ferme> searchFermes(@RequestBody FermeSearchDTO searchDTO) {
+        return fermeService.searchFermes(searchDTO);
+    }
 
 }
