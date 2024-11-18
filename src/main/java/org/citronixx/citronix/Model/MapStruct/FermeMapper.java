@@ -5,12 +5,12 @@ import org.citronixx.citronix.Model.DTO.FermeDTO;
 import org.citronixx.citronix.Model.Entity.Ferme;
 import org.citronixx.citronix.Model.ViewModel.FermeViewModel;
 import org.mapstruct.Mapper;
+import org.mapstruct.Mapping;
 import org.mapstruct.factory.Mappers;
 
 @Mapper(componentModel = "spring")
 public interface FermeMapper {
 
-    FermeMapper INSTANCE = Mappers.getMapper(FermeMapper.class);
 
     // Map from Ferme entity to FermeDTO
     FermeDTO fermeToFermeDTO(Ferme ferme);

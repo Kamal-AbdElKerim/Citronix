@@ -10,7 +10,6 @@ import org.mapstruct.factory.Mappers;
 @Mapper(componentModel = "spring")
 public interface DetailRecolteMapper {
 
-    DetailRecolteMapper INSTANCE = Mappers.getMapper(DetailRecolteMapper.class);
 
     // Map from DetailRecolte entity to DetailRecolteDTO
     DetailRecolteDTO detailRecolteToDetailRecolteDTO(DetailRecolte detailRecolte);
