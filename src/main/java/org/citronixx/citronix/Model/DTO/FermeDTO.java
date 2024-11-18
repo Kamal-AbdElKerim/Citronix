@@ -28,7 +28,7 @@ public class FermeDTO {
     @DecimalMin(value = "0.1", message = "La superficie doit être au moins de 0.1 hectare.")
     private double superficie;
 
-    @PastOrPresent(message = "La date de création doit être passée ou aujourd'hui.")
+
     private LocalDate dateCreation;
 
     private List<ChampDTO> champs;

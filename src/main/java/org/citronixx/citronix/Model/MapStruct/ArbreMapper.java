@@ -9,7 +9,6 @@ import org.mapstruct.factory.Mappers;
 @Mapper(componentModel = "spring")
 public interface ArbreMapper {
 
-    ArbreMapper INSTANCE = Mappers.getMapper(ArbreMapper.class);
 
     ArbreDTO arbreToArbreDTO(Arbre arbre);
 

@@ -9,7 +9,6 @@ import org.mapstruct.factory.Mappers;
 @Mapper(componentModel = "spring")
 public interface ChampMapper {
 
-    ChampMapper INSTANCE = Mappers.getMapper(ChampMapper.class);
 
     // Map from Champ entity to ChampDTO
     ChampDTO champToChampDTO(Champ champ);
