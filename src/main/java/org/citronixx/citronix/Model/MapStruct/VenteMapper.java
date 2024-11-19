@@ -9,7 +9,7 @@ import org.mapstruct.factory.Mappers;
 @Mapper(componentModel = "spring")
 public interface VenteMapper {
 
-
+    VenteMapper INSTANCE = Mappers.getMapper(VenteMapper.class);
     // Map from Vente entity to VenteDTO
     VenteDTO venteToVenteDTO(Vente vente);
 

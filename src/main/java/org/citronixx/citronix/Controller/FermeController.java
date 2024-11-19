@@ -12,7 +12,7 @@ import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
-@RequestMapping("/Api/Ferme")
+@RequestMapping("/api/Ferme")
 @RestController
 public class FermeController {
 
@@ -67,7 +67,7 @@ public class FermeController {
 
 
     @PostMapping("/search")
-    public List<Ferme> searchFermes(@RequestBody FermeSearchDTO searchDTO) {
+    public List<FermeViewModel> searchFermes(@RequestBody FermeSearchDTO searchDTO) {
         return fermeService.searchFermes(searchDTO);
     }
 
