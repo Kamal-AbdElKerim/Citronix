@@ -47,11 +47,20 @@ public class FermeServiceImpl implements FermeService {
 
     @Override
     public List<FermeViewModel> getAllFermes() {
-        List<Ferme> fermes = fermeRepository.findAll(); // Get Fermes from DB
-        return fermes.stream()
-                .map(fermeMapper::fermeToFermeViewModel)
-                .collect(Collectors.toList());
+        // Fetch all Fermes from the repository
+        List<Ferme> fermes = fermeRepository.findAll();
+
+
+        List<FermeViewModel> fermeViewModels = new ArrayList<>();
+
+        for (Ferme ferme : fermes) {
+            FermeViewModel fermeViewModel = fermeMapper.fermeToFermeViewModel(ferme);
+            fermeViewModels.add(fermeViewModel);
+        }
+
+        return fermeViewModels;
     }
+
 
     @Override
     public FermeViewModel getFermeById(Long id) {
@@ -86,7 +95,6 @@ public class FermeServiceImpl implements FermeService {
        Ferme existingFerme = fermeRepository.findById(id)
                .orElseThrow(() -> new EntityNotFoundException("Ferme with ID " + id + " not found"));
 
-       // Build the updated Ferme using the existing Ferme and values from the FermeDTO
        Ferme updatedFerme = existingFerme.toBuilder()
                .nom(fermeDTO.getNom() != null ? fermeDTO.getNom() : existingFerme.getNom())
                .localisation(fermeDTO.getLocalisation() != null ? fermeDTO.getLocalisation() : existingFerme.getLocalisation())
@@ -94,15 +102,13 @@ public class FermeServiceImpl implements FermeService {
                .dateCreation(fermeDTO.getDateCreation() != null ? fermeDTO.getDateCreation() : existingFerme.getDateCreation())
                .build();
 
-       // Save the updated Ferme
        Ferme savedFerme = fermeRepository.save(updatedFerme);
 
-       // Return the updated Ferme as a FermeViewModel
        return fermeMapper.fermeToFermeViewModel(savedFerme);
    }
 
 
-    public List<Ferme> searchFermes(FermeSearchDTO searchDTO) {
+    public List<FermeViewModel> searchFermes(FermeSearchDTO searchDTO) {
         CriteriaBuilder criteriaBuilder = entityManager.getCriteriaBuilder();
         CriteriaQuery<Ferme> criteriaQuery = criteriaBuilder.createQuery(Ferme.class);
         Root<Ferme> fermeRoot = criteriaQuery.from(Ferme.class);
@@ -135,7 +141,8 @@ public class FermeServiceImpl implements FermeService {
 
         // Execute the query
         TypedQuery<Ferme> query = entityManager.createQuery(criteriaQuery);
-        return query.getResultList();
+        List<Ferme> ResultList = query.getResultList();
+        return fermeMapper.fermeToFermeViewModel(ResultList);
     }
 
 }

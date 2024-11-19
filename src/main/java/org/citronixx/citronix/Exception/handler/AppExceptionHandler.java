@@ -3,6 +3,7 @@ package org.citronixx.citronix.Exception.handler;
 
 import org.citronixx.citronix.Exception.EntityAlreadyExistsException;
 import org.citronixx.citronix.Exception.EntityNotFoundException;
+import org.citronixx.citronix.Exception.ValidationException;
 import org.citronixx.citronix.Exception.shared.ErrorMessage;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
@@ -44,6 +45,15 @@ public class AppExceptionHandler {
                 .code(409)
                 .build();
         return new ResponseEntity<>(errorMessage, HttpStatus.CONFLICT);
+    }
+
+    @ExceptionHandler(value = {ValidationException.class})
+    public ResponseEntity<Object> handleValidationException(ValidationException ex) {
+        Map<String, String> errorDetails = new HashMap<>();
+        errorDetails.put("field", ex.getField());
+        errorDetails.put("error", ex.getMessage());
+
+        return new ResponseEntity<>(errorDetails, HttpStatus.BAD_REQUEST);
     }
 }
 

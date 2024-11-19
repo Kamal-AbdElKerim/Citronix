@@ -1,6 +1,7 @@
 package org.citronixx.citronix.Model.DTO;
 
 import jakarta.persistence.CascadeType;
+import jakarta.persistence.Entity;
 import jakarta.persistence.JoinColumn;
 import jakarta.persistence.OneToMany;
 import jakarta.validation.constraints.DecimalMax;
@@ -13,10 +14,12 @@ import org.citronixx.citronix.Model.Entity.Ferme;
 
 import java.util.List;
 
-@Data
+@Getter
+@Setter
 @Builder
 @NoArgsConstructor
 @AllArgsConstructor
+
 public class ChampDTO {
     private Long id;
 
@@ -24,8 +27,7 @@ public class ChampDTO {
     @Size(max = 100, message = "Le nom du champ ne peut pas dépasser 100 caractères.")
     private String nom;
 
-    @DecimalMin(value = "0.1", message = "La superficie d'un champ doit être au moins de 0.1 hectare.")
-    @DecimalMax(value = "50", message = "La superficie d'un champ ne peut pas dépasser 50% de celle de la ferme.")
+
     private double superficie;
 
     private FermeDTO ferme;
