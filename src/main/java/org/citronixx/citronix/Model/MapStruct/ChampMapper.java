@@ -1,16 +1,16 @@
 package org.citronixx.citronix.Model.MapStruct;
 
-import org.citronixx.citronix.Model.DTO.ChampDTO;
-import org.citronixx.citronix.Model.Entity.Champ;
-import org.citronixx.citronix.Model.Entity.Ferme;
-import org.citronixx.citronix.Model.ViewModel.ChampViewModel;
-import org.citronixx.citronix.Model.ViewModel.FermeViewModel;
+import org.citronixx.citronix.Model.entites.Champ.ChampDTO;
+import org.citronixx.citronix.Model.entites.Champ.Champ;
+import org.citronixx.citronix.Model.entites.Champ.Response.ResponseChamp;
+import org.citronixx.citronix.Model.entites.Champ.Response.ResponseChampDTO;
 import org.mapstruct.Mapper;
+import org.mapstruct.Mapping;
 import org.mapstruct.factory.Mappers;
 
 import java.util.List;
 
-@Mapper(componentModel = "spring" )
+@Mapper(componentModel = "spring" , uses = {FermeMapper.class})
 public interface ChampMapper {
 
     ChampMapper INSTANCE = Mappers.getMapper(ChampMapper.class);
@@ -20,11 +20,14 @@ public interface ChampMapper {
     // Map from ChampDTO to Champ entity
     Champ champDTOToChamp(ChampDTO champDTO);
 
-    // Map from Champ entity to ChampViewModel
-    ChampViewModel champToChampViewModel(Champ champ);
+    // Map from Champ entity to ResponseChampDTO
+    ResponseChamp champToResponseChamp(Champ champ);
 
-//    List<ChampViewModel> champToChampViewModel(List<Champ> champs);
-    // Map from ChampViewModel to Champ entity
-    Champ champViewModelToChamp(ChampViewModel champViewModel);
+  //  @Mapping(target = "arbres", ignore = true) // To avoid circular dependencies
+    ResponseChampDTO champToResponseChampDTO(Champ champ);
+
+   List<ResponseChampDTO> champToResponseChampDTO(List<Champ> champs);
+    // Map from ResponseChampDTO to Champ entity
+    Champ ResponseChampDTOToChamp(ResponseChampDTO ResponseChampDTO);
 }
 

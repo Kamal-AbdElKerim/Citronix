@@ -1,16 +1,15 @@
 package org.citronixx.citronix.Model.MapStruct;
 
 
-import org.citronixx.citronix.Model.DTO.FermeDTO;
-import org.citronixx.citronix.Model.Entity.Ferme;
-import org.citronixx.citronix.Model.ViewModel.FermeViewModel;
+import org.citronixx.citronix.Model.entites.Ferme.FermeDTO;
+import org.citronixx.citronix.Model.entites.Ferme.Ferme;
+import org.citronixx.citronix.Model.entites.Ferme.Response.ResponseFermeDTO;
 import org.mapstruct.Mapper;
-import org.mapstruct.Mapping;
 import org.mapstruct.factory.Mappers;
 
 import java.util.List;
 
-@Mapper(componentModel = "spring" , uses = {ChampMapper.class})
+@Mapper(componentModel = "spring" )
 public interface FermeMapper {
 
     FermeMapper INSTANCE = Mappers.getMapper(FermeMapper.class);
@@ -21,16 +20,16 @@ public interface FermeMapper {
     // Map from FermeDTO to Ferme entity
     Ferme fermeDTOToFerme(FermeDTO fermeDTO);
 
-    // Map from Ferme entity to FermeViewModel
+    // Map from Ferme entity to ResponseFermeDTO
 
 
-    FermeViewModel fermeToFermeViewModel(Ferme ferme);
+    ResponseFermeDTO fermeToResponseFermeDTO(Ferme ferme);
 
-    // Map from FermeViewModel to Ferme entity
-    Ferme fermeViewModelToFerme(FermeViewModel fermeViewModel);
+    // Map from ResponseFermeDTO to Ferme entity
+    Ferme ResponseFermeDTOToFerme(ResponseFermeDTO ResponseFermeDTO);
 
-    List<FermeViewModel> fermeToFermeViewModel(List<Ferme> fermes);
+    List<ResponseFermeDTO> fermeToResponseFermeDTO(List<Ferme> fermes);
 
-    // Optionally, map a List<FermeViewModel> to List<Ferme> (reverse mapping)
-    List<Ferme> fermeViewModelToFerme(List<FermeViewModel> fermeViewModels);
+    // Optionally, map a List<ResponseFermeDTO> to List<Ferme> (reverse mapping)
+    List<Ferme> ResponseFermeDTOToFerme(List<ResponseFermeDTO> ResponseFermeDTOs);
 }

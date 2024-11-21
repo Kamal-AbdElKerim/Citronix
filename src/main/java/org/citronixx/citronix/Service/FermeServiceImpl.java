@@ -8,11 +8,11 @@ import jakarta.persistence.criteria.CriteriaQuery;
 import jakarta.persistence.criteria.Predicate;
 import jakarta.persistence.criteria.Root;
 import org.citronixx.citronix.Exception.EntityNotFoundException;
-import org.citronixx.citronix.Model.DTO.FermeDTO;
-import org.citronixx.citronix.Model.Entity.Ferme;
+import org.citronixx.citronix.Model.entites.Ferme.FermeDTO;
+import org.citronixx.citronix.Model.entites.Ferme.Ferme;
+import org.citronixx.citronix.Model.entites.Ferme.Response.ResponseFermeDTO;
 import org.citronixx.citronix.Model.MapStruct.FermeMapper;
 import org.citronixx.citronix.Model.SearchDTO.FermeSearchDTO;
-import org.citronixx.citronix.Model.ViewModel.FermeViewModel;
 import org.citronixx.citronix.Repository.FermeRepository;
 import org.citronixx.citronix.Service.Interface.FermeService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -20,10 +20,7 @@ import org.springframework.stereotype.Service;
 
 import java.time.LocalDate;
 import java.util.ArrayList;
-import java.util.Date;
 import java.util.List;
-import java.util.Optional;
-import java.util.stream.Collectors;
 
 @Service
 public class FermeServiceImpl implements FermeService {
@@ -38,36 +35,33 @@ public class FermeServiceImpl implements FermeService {
     private EntityManager entityManager;
 
     @Override
-    public FermeViewModel saveFerme(FermeDTO fermeDTO) {
+    public ResponseFermeDTO saveFerme(FermeDTO fermeDTO) {
          fermeDTO.setDateCreation(LocalDate.now());
          Ferme ferme = fermeMapper.fermeDTOToFerme(fermeDTO);
          Ferme saveferme  =  fermeRepository.save(ferme);
-         return fermeMapper.fermeToFermeViewModel(saveferme);
+         return fermeMapper.fermeToResponseFermeDTO(saveferme);
     }
 
     @Override
-    public List<FermeViewModel> getAllFermes() {
+    public List<ResponseFermeDTO> getAllFermes() {
         // Fetch all Fermes from the repository
         List<Ferme> fermes = fermeRepository.findAll();
 
 
-        List<FermeViewModel> fermeViewModels = new ArrayList<>();
 
-        for (Ferme ferme : fermes) {
-            FermeViewModel fermeViewModel = fermeMapper.fermeToFermeViewModel(ferme);
-            fermeViewModels.add(fermeViewModel);
-        }
+        List<ResponseFermeDTO> ResponseFermeDTO = fermeMapper.fermeToResponseFermeDTO(fermes);
 
-        return fermeViewModels;
+
+        return ResponseFermeDTO;
     }
 
 
     @Override
-    public FermeViewModel getFermeById(Long id) {
+    public ResponseFermeDTO getFermeById(Long id) {
         Ferme ferme = fermeRepository.findById(id)
                 .orElseThrow(() -> new EntityNotFoundException("Ferme with ID " + id + " not found"));
 
-        return fermeMapper.fermeToFermeViewModel(ferme);
+        return fermeMapper.fermeToResponseFermeDTO(ferme);
     }
 
 
@@ -90,7 +84,7 @@ public class FermeServiceImpl implements FermeService {
 //        return fermeRepository.findByNom(nom);
 //    }
    @Override
-   public FermeViewModel updateFerme(Long id, FermeDTO fermeDTO) {
+   public ResponseFermeDTO updateFerme(Long id, FermeDTO fermeDTO) {
        // Check if the Ferme exists
        Ferme existingFerme = fermeRepository.findById(id)
                .orElseThrow(() -> new EntityNotFoundException("Ferme with ID " + id + " not found"));
@@ -104,11 +98,11 @@ public class FermeServiceImpl implements FermeService {
 
        Ferme savedFerme = fermeRepository.save(updatedFerme);
 
-       return fermeMapper.fermeToFermeViewModel(savedFerme);
+       return fermeMapper.fermeToResponseFermeDTO(savedFerme);
    }
 
 
-    public List<FermeViewModel> searchFermes(FermeSearchDTO searchDTO) {
+    public List<ResponseFermeDTO> searchFermes(FermeSearchDTO searchDTO) {
         CriteriaBuilder criteriaBuilder = entityManager.getCriteriaBuilder();
         CriteriaQuery<Ferme> criteriaQuery = criteriaBuilder.createQuery(Ferme.class);
         Root<Ferme> fermeRoot = criteriaQuery.from(Ferme.class);
@@ -142,7 +136,7 @@ public class FermeServiceImpl implements FermeService {
         // Execute the query
         TypedQuery<Ferme> query = entityManager.createQuery(criteriaQuery);
         List<Ferme> ResultList = query.getResultList();
-        return fermeMapper.fermeToFermeViewModel(ResultList);
+        return fermeMapper.fermeToResponseFermeDTO(ResultList);
     }
 
 }

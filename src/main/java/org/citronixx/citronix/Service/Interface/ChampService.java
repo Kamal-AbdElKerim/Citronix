@@ -1,24 +1,21 @@
 package org.citronixx.citronix.Service.Interface;
 
-import org.citronixx.citronix.Model.DTO.ChampDTO;
-import org.citronixx.citronix.Model.Entity.Champ;
-import org.citronixx.citronix.Model.Entity.Ferme;
-import org.citronixx.citronix.Model.ViewModel.ChampViewModel;
+import org.citronixx.citronix.Model.entites.Champ.ChampDTO;
+import org.citronixx.citronix.Model.entites.Champ.Response.ResponseChampDTO;
 
 import java.util.List;
-import java.util.Optional;
 
 public interface ChampService {
 
-    ChampViewModel addChampToFerme(Long fermeId, ChampDTO champDTO);
+    ResponseChampDTO addChampToFerme(Long fermeId, ChampDTO champDTO);
 
-    List<ChampViewModel> getAllChamps();
+    List<ResponseChampDTO> getAllChamps();
 
-    Optional<ChampViewModel> getChampById(Long id);
+    ResponseChampDTO getChampById(Long id);
 
     String deleteChamp(Long id);
 
-    ChampViewModel updateChamp (Long champId, ChampDTO champDTO);
+    ResponseChampDTO updateChamp (Long champId, ChampDTO champDTO);
 
    // List<Champ> findByFerme(Ferme ferme);
 }

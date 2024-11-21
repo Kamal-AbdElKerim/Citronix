@@ -1,9 +1,9 @@
-package org.citronixx.citronix.Model.DTO;
+package org.citronixx.citronix.Model.entites.Arbre;
 
 import jakarta.validation.constraints.Max;
 import jakarta.validation.constraints.Past;
 import lombok.*;
-import org.citronixx.citronix.Model.Entity.Champ;
+import org.citronixx.citronix.Model.entites.Champ.ChampDTO;
 
 import java.time.LocalDate;
 

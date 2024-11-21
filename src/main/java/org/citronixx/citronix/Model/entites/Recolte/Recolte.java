@@ -1,11 +1,9 @@
-package org.citronixx.citronix.Model.Entity;
+package org.citronixx.citronix.Model.entites.Recolte;
 
 import jakarta.persistence.*;
-import jakarta.validation.constraints.DecimalMin;
-import jakarta.validation.constraints.NotNull;
-import jakarta.validation.constraints.PastOrPresent;
 import lombok.*;
 import org.citronixx.citronix.Model.Enum.Saison;
+import org.citronixx.citronix.Model.entites.DetailRecolte.DetailRecolte;
 
 import java.time.LocalDate;
 import java.util.List;
@@ -26,6 +24,8 @@ public class Recolte {
     private LocalDate dateRecolte;
 
     private double quantiteTotale;
+
+
 
     @OneToMany(mappedBy = "recolte", cascade = CascadeType.ALL, orphanRemoval = true)
     private List<DetailRecolte> detailsRecolte;

@@ -1,13 +1,11 @@
-package org.citronixx.citronix.Model.DTO;
+package org.citronixx.citronix.Model.entites.Ferme;
 
 import jakarta.validation.constraints.DecimalMin;
 import jakarta.validation.constraints.NotBlank;
-import jakarta.validation.constraints.PastOrPresent;
 import jakarta.validation.constraints.Size;
 import lombok.*;
 
 import java.time.LocalDate;
-import java.util.List;
 
 @Getter
 @Setter
@@ -33,6 +31,6 @@ public class FermeDTO {
 
     private LocalDate dateCreation;
 
-    private List<ChampDTO> champs;
+
 
 }

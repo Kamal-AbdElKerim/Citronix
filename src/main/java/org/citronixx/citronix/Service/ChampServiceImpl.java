@@ -2,20 +2,18 @@ package org.citronixx.citronix.Service;
 
 import org.citronixx.citronix.Exception.EntityNotFoundException;
 import org.citronixx.citronix.Exception.ValidationException;
-import org.citronixx.citronix.Model.DTO.ChampDTO;
-import org.citronixx.citronix.Model.Entity.Champ;
-import org.citronixx.citronix.Model.Entity.Ferme;
+import org.citronixx.citronix.Model.entites.Champ.ChampDTO;
+import org.citronixx.citronix.Model.entites.Champ.Champ;
+import org.citronixx.citronix.Model.entites.Champ.Response.ResponseChampDTO;
+import org.citronixx.citronix.Model.entites.Ferme.Ferme;
 import org.citronixx.citronix.Model.MapStruct.ChampMapper;
-import org.citronixx.citronix.Model.ViewModel.ChampViewModel;
 import org.citronixx.citronix.Repository.ChampRepository;
 import org.citronixx.citronix.Repository.FermeRepository;
 import org.citronixx.citronix.Service.Interface.ChampService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import java.util.ArrayList;
 import java.util.List;
-import java.util.Optional;
 
 @Service
 public class ChampServiceImpl implements ChampService {
@@ -30,7 +28,7 @@ public class ChampServiceImpl implements ChampService {
     private ChampMapper champMapper;
 
     @Override
-    public ChampViewModel addChampToFerme(Long fermeId, ChampDTO champDTO) {
+    public ResponseChampDTO addChampToFerme(Long fermeId, ChampDTO champDTO) {
 
         Ferme ferme = fermeRepository.findById(fermeId)
                 .orElseThrow(() -> new EntityNotFoundException("Ferme not found with ID: " + fermeId));
@@ -48,7 +46,7 @@ public class ChampServiceImpl implements ChampService {
         Champ savedChamp = champRepository.save(champ);
 
 
-        return  ChampsToChampViewModels(savedChamp);
+        return  champMapper.champToResponseChampDTO(savedChamp);
     }
 
     public void ValidationChamp(ChampDTO champDTO , Ferme ferme) {
@@ -79,45 +77,46 @@ public class ChampServiceImpl implements ChampService {
 
 
     @Override
-    public List<ChampViewModel> getAllChamps() {
+    public List<ResponseChampDTO> getAllChamps() {
         List<Champ> champs =  champRepository.findAll();
         System.out.println(champs);
 
-      return  ListChampsToChampViewModels(champs);
+      return  champMapper.champToResponseChampDTO(champs);
     }
 
-    public  List<ChampViewModel> ListChampsToChampViewModels(List<Champ> champs) {
-        List<ChampViewModel> champViewModels = new ArrayList<>();
-        for (Champ champ : champs) {
-            ChampViewModel champViewModel = ChampViewModel.builder()
-                    .id(champ.getId())
-                    .nom(champ.getNom())
-                    .fermeNom(champ.getFerme().getNom())
-                    .nombreArbres(champ.getArbres() != null ? champ.getArbres().size() : 0)
-                    .superficie(champ.getSuperficie())
-                    .build();
-            champViewModels.add(champViewModel);
-        }
+//    public  List<ResponseChampDTO> ListChampsToResponseChampDTOs(List<Champ> champs) {
+//        List<ResponseChampDTO> ResponseChampDTOs = new ArrayList<>();
+//        for (Champ champ : champs) {
+//            ResponseChampDTO ResponseChampDTO = ResponseChampDTO.builder()
+//                    .id(champ.getId())
+//                    .nom(champ.getNom())
+//                    .fermeNom(champ.getFerme().getNom())
+//                 //   .nombreArbres(champ.getArbres() != null ? champ.getArbres().size() : 0)
+//                    .superficie(champ.getSuperficie())
+//                    .build();
+//            ResponseChampDTOs.add(ResponseChampDTO);
+//        }
+//
+//        return ResponseChampDTOs;
+//
+//    }
 
-        return champViewModels;
-
-    }
-
-    public  ChampViewModel ChampsToChampViewModels(Champ champ){
-
-        return ChampViewModel.builder()
-                .id(champ.getId())
-                .nom(champ.getNom())
-                .fermeNom(champ.getFerme().getNom())
-                .nombreArbres(champ.getArbres() != null ? champ.getArbres().size() : 0)
-                .superficie(champ.getSuperficie())
-                .build();
-    }
+//    public  ResponseChampDTO ChampsToResponseChampDTOs(Champ champ){
+//
+//        return ResponseChampDTO.builder()
+//                .id(champ.getId())
+//                .nom(champ.getNom())
+//                .fermeNom(champ.getFerme().getNom())
+//                .nombreArbres(champ.getArbres() != null ? champ.getArbres().size() : 0)
+//                .superficie(champ.getSuperficie())
+//                .build();
+//    }
 
     @Override
-    public Optional<ChampViewModel> getChampById(Long id) {
-        Optional<Champ> champ = champRepository.findById(id);
-        return champ.map(this::ChampsToChampViewModels);
+    public ResponseChampDTO getChampById(Long id) {
+        Champ champ = champRepository.findById(id)
+                .orElseThrow(() -> new EntityNotFoundException("Champ with ID " + id + " not found"));;
+        return champMapper.champToResponseChampDTO(champ);
     }
 
 
@@ -134,7 +133,7 @@ public class ChampServiceImpl implements ChampService {
 
 
     @Override
-    public ChampViewModel updateChamp (Long champId, ChampDTO champDTO){
+    public ResponseChampDTO updateChamp (Long champId, ChampDTO champDTO){
         Champ existingChamp = champRepository.findById(champId)
                 .orElseThrow(() -> new EntityNotFoundException("Champ with ID " + champId + " not found"));
         Champ updatedChamp = existingChamp.toBuilder()
@@ -145,14 +144,8 @@ public class ChampServiceImpl implements ChampService {
         ValidationChamp( champDTO , existingChamp.getFerme()) ;
 
         Champ savedChamp = champRepository.save(updatedChamp);
-     //  return champMapper.champToChampViewModel(savedChamp);
-        return ChampViewModel.builder()
-                .id(savedChamp.getId())
-                .nom(savedChamp.getNom())
-                .fermeNom(savedChamp.getFerme().getNom())
-                .nombreArbres(savedChamp.getArbres() != null ? savedChamp.getArbres().size() : 0)
-                .superficie(savedChamp.getSuperficie())
-                .build();
+     //  return champMapper.champToResponseChampDTO(savedChamp);
+        return champMapper.champToResponseChampDTO(savedChamp);
 
     }
 

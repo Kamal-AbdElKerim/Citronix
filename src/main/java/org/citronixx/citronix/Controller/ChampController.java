@@ -2,16 +2,15 @@ package org.citronixx.citronix.Controller;
 
 
 import jakarta.validation.Valid;
-import org.citronixx.citronix.Model.DTO.ChampDTO;
-import org.citronixx.citronix.Model.Entity.Champ;
-import org.citronixx.citronix.Model.ViewModel.ChampViewModel;
+
+import org.citronixx.citronix.Model.entites.Champ.ChampDTO;
+import org.citronixx.citronix.Model.entites.Champ.Response.ResponseChampDTO;
 import org.citronixx.citronix.Service.ChampServiceImpl;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
-import java.util.Optional;
 
 @RequestMapping("/api/champs")
 @RestController
@@ -22,33 +21,33 @@ public class ChampController {
 
     // Add a Champ to a Ferme
     @PostMapping("/{fermeId}")
-    public ResponseEntity<ChampViewModel> addChampToFerme(
+    public ResponseEntity<ResponseChampDTO> addChampToFerme(
             @PathVariable Long fermeId,
             @RequestBody @Valid ChampDTO champDTO) {
-        ChampViewModel createdChamp = champService.addChampToFerme(fermeId, champDTO);
+        ResponseChampDTO createdChamp = champService.addChampToFerme(fermeId, champDTO);
         return ResponseEntity.ok(createdChamp);
     }
 
     // Get all Champs for a specific Ferme
     @GetMapping("/{ChampId}")
-    public ResponseEntity<Optional<ChampViewModel>> getChampsById(@PathVariable Long ChampId) {
-        Optional<ChampViewModel> champs = champService.getChampById(ChampId);
+    public ResponseEntity<ResponseChampDTO> getChampsById(@PathVariable Long ChampId) {
+        ResponseChampDTO champs = champService.getChampById(ChampId);
         return ResponseEntity.ok(champs);
     }
 
 
     @GetMapping()
-    public ResponseEntity<List<ChampViewModel>> getAllChamps() {
-        List<ChampViewModel> champs = champService.getAllChamps();
+    public ResponseEntity<List<ResponseChampDTO>> getAllChamps() {
+        List<ResponseChampDTO> champs = champService.getAllChamps();
         return ResponseEntity.ok(champs);
     }
 
   // Update a Champ
     @PutMapping("/{champId}")
-    public ResponseEntity<ChampViewModel> updateChamp(
+    public ResponseEntity<ResponseChampDTO> updateChamp(
             @PathVariable Long champId,
             @RequestBody @Valid ChampDTO champDTO) {
-        ChampViewModel updatedChamp = champService.updateChamp(champId, champDTO);
+        ResponseChampDTO updatedChamp = champService.updateChamp(champId, champDTO);
         return ResponseEntity.ok(updatedChamp);
     }
 

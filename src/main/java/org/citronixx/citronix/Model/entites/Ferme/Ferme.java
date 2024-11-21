@@ -1,9 +1,8 @@
-package org.citronixx.citronix.Model.Entity;
+package org.citronixx.citronix.Model.entites.Ferme;
 
-import com.fasterxml.jackson.annotation.JsonManagedReference;
 import jakarta.persistence.*;
-import jakarta.validation.constraints.*;
 import lombok.*;
+import org.citronixx.citronix.Model.entites.Champ.Champ;
 
 import java.time.LocalDate;
 import java.util.List;
@@ -26,7 +25,6 @@ public class Ferme {
     private LocalDate dateCreation;
 
     @OneToMany(mappedBy = "ferme", cascade = CascadeType.ALL, orphanRemoval = true)
-  @JsonManagedReference
     private List<Champ> champs;
 }
 

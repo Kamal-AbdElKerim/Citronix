@@ -1,8 +1,9 @@
 package org.citronixx.citronix.Model.MapStruct;
 
-import org.citronixx.citronix.Model.DTO.RecolteDTO;
-import org.citronixx.citronix.Model.Entity.Recolte;
-import org.citronixx.citronix.Model.ViewModel.RecolteViewModel;
+
+import org.citronixx.citronix.Model.entites.Recolte.Recolte;
+import org.citronixx.citronix.Model.entites.Recolte.RecolteDTO;
+import org.citronixx.citronix.Model.entites.Recolte.Response.ResponseRecolteDTO;
 import org.mapstruct.Mapper;
 import org.mapstruct.factory.Mappers;
 
@@ -17,9 +18,9 @@ public interface RecolteMapper {
     // Map from RecolteDTO to Recolte entity
     Recolte recolteDTOToRecolte(RecolteDTO recolteDTO);
 
-    // Map from Recolte entity to RecolteViewModel
-    RecolteViewModel recolteToRecolteViewModel(Recolte recolte);
+    // Map from Recolte entity to ResponseRecolteDTO
+    ResponseRecolteDTO recolteToResponseRecolteDTO(Recolte recolte);
 
-    // Map from RecolteViewModel to Recolte entity
-    Recolte recolteViewModelToRecolte(RecolteViewModel recolteViewModel);
+    // Map from ResponseRecolteDTO to Recolte entity
+    Recolte ResponseRecolteDTOToRecolte(ResponseRecolteDTO ResponseRecolteDTO);
 }

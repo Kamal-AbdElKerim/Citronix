@@ -1,10 +1,8 @@
 package org.citronixx.citronix.Controller;
 
 import jakarta.validation.Valid;
-import org.citronixx.citronix.Model.DTO.FermeDTO;
-import org.citronixx.citronix.Model.Entity.Ferme;
-import org.citronixx.citronix.Model.SearchDTO.FermeSearchDTO;
-import org.citronixx.citronix.Model.ViewModel.FermeViewModel;
+import org.citronixx.citronix.Model.entites.Ferme.FermeDTO;
+import org.citronixx.citronix.Model.entites.Ferme.Response.ResponseFermeDTO;
 import org.citronixx.citronix.Service.FermeServiceImpl;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
@@ -21,54 +19,54 @@ public class FermeController {
 
 
     @GetMapping("/fermes")
-    public ResponseEntity<List<FermeViewModel>> getAllFermes() {
-        List<FermeViewModel> fermeViewModels = fermeService.getAllFermes();
-        return ResponseEntity.ok(fermeViewModels);
+    public ResponseEntity<List<ResponseFermeDTO>> getAllFermes() {
+        List<ResponseFermeDTO> ResponseFermeDTOs = fermeService.getAllFermes();
+        return ResponseEntity.ok(ResponseFermeDTOs);
     }
 
     @PostMapping()
-    public ResponseEntity<FermeViewModel> createFerme(@RequestBody @Valid FermeDTO fermeDTO) {
-        FermeViewModel saveFerme = fermeService.saveFerme(fermeDTO);
+    public ResponseEntity<ResponseFermeDTO> createFerme(@RequestBody @Valid FermeDTO fermeDTO) {
+        ResponseFermeDTO saveFerme = fermeService.saveFerme(fermeDTO);
         return ResponseEntity.ok(saveFerme);
     }
-
-
-    @GetMapping("/{id}")
-    public ResponseEntity<FermeViewModel> getFermeById(@PathVariable Long id) {
-        FermeViewModel fermeViewModel = fermeService.getFermeById(id);
-        if (fermeViewModel != null) {
-            return ResponseEntity.ok(fermeViewModel);
-        } else {
-            return ResponseEntity.notFound().build();
-        }
-    }
-
-
-    @PutMapping("/{id}")
-    public ResponseEntity<FermeViewModel> updateFerme(@PathVariable Long id, @RequestBody @Valid FermeDTO fermeDTO) {
-        FermeViewModel updatedFerme = fermeService.updateFerme(id, fermeDTO);
-        if (updatedFerme != null) {
-            return ResponseEntity.ok(updatedFerme);
-        } else {
-            return ResponseEntity.notFound().build();
-        }
-    }
-
-
-    @DeleteMapping("/{id}")
-    public ResponseEntity<Void> deleteFerme(@PathVariable Long id) {
-        boolean isDeleted = fermeService.deleteFerme(id);
-        if (isDeleted) {
-            return ResponseEntity.noContent().build();
-        } else {
-            return ResponseEntity.notFound().build();
-        }
-    }
-
-
-    @PostMapping("/search")
-    public List<FermeViewModel> searchFermes(@RequestBody FermeSearchDTO searchDTO) {
-        return fermeService.searchFermes(searchDTO);
-    }
+//
+//
+//    @GetMapping("/{id}")
+//    public ResponseEntity<ResponseFermeDTO> getFermeById(@PathVariable Long id) {
+//        ResponseFermeDTO ResponseFermeDTO = fermeService.getFermeById(id);
+//        if (ResponseFermeDTO != null) {
+//            return ResponseEntity.ok(ResponseFermeDTO);
+//        } else {
+//            return ResponseEntity.notFound().build();
+//        }
+//    }
+//
+//
+//    @PutMapping("/{id}")
+//    public ResponseEntity<ResponseFermeDTO> updateFerme(@PathVariable Long id, @RequestBody @Valid FermeDTO fermeDTO) {
+//        ResponseFermeDTO updatedFerme = fermeService.updateFerme(id, fermeDTO);
+//        if (updatedFerme != null) {
+//            return ResponseEntity.ok(updatedFerme);
+//        } else {
+//            return ResponseEntity.notFound().build();
+//        }
+//    }
+//
+//
+//    @DeleteMapping("/{id}")
+//    public ResponseEntity<Void> deleteFerme(@PathVariable Long id) {
+//        boolean isDeleted = fermeService.deleteFerme(id);
+//        if (isDeleted) {
+//            return ResponseEntity.noContent().build();
+//        } else {
+//            return ResponseEntity.notFound().build();
+//        }
+//    }
+//
+//
+//    @PostMapping("/search")
+//    public List<ResponseFermeDTO> searchFermes(@RequestBody FermeSearchDTO searchDTO) {
+//        return fermeService.searchFermes(searchDTO);
+//    }
 
 }

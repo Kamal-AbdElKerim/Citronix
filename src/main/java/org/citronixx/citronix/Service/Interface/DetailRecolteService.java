@@ -1,20 +1,23 @@
 package org.citronixx.citronix.Service.Interface;
 
-import org.citronixx.citronix.Model.Entity.Arbre;
-import org.citronixx.citronix.Model.Entity.DetailRecolte;
+
+import org.citronixx.citronix.Model.entites.DetailRecolte.DetailRecolte;
+import org.citronixx.citronix.Model.entites.DetailRecolte.DetailRecolteDTO;
+import org.citronixx.citronix.Model.entites.DetailRecolte.Response.ResponseDetailRecolteDTO;
 
 import java.util.List;
 import java.util.Optional;
 
 public interface DetailRecolteService {
 
-    DetailRecolte saveDetailRecolte(DetailRecolte detailRecolte);
 
-    List<DetailRecolte> getAllDetailRecoltes();
+    ResponseDetailRecolteDTO addDetailRecolteToArbre(Long recolteID, Long arbreId, DetailRecolteDTO detailRecolteDTO);
 
-    Optional<DetailRecolte> getDetailRecolteById(Long id);
+    List<ResponseDetailRecolteDTO> getAllDetailRecoltes();
 
-    void deleteDetailRecolte(Long id);
+    ResponseDetailRecolteDTO getDetailRecolteById(Long id);
 
-   // List<DetailRecolte> findByArbre(Arbre arbre);
+    String deleteDetailRecolte(Long id);
+
+    ResponseDetailRecolteDTO updateDetailRecolteToArbre(Long detailRecolteId, DetailRecolteDTO detailRecolteDTO);
 }
