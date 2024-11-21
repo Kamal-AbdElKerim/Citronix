@@ -21,6 +21,7 @@ public interface RecolteMapper {
     RecolteDTO recolteToRecolteDTO(Recolte recolte);
 
     // Map from RecolteDTO to Recolte entity
+
     Recolte recolteDTOToRecolte(RecolteDTO recolteDTO);
 
     // Map from Recolte entity to ResponseRecolteDTO
@@ -38,6 +39,7 @@ public interface RecolteMapper {
 
     // Helper method to calculate quantiteTotale for Recolte
     default double calculateQuantiteTotale(Recolte recolte) {
+
         return (recolte.getDetailsRecolte() != null ? recolte.getDetailsRecolte().stream()
                 .mapToDouble(DetailRecolte::getQuantiteParArbre)
                 .sum() : 0);

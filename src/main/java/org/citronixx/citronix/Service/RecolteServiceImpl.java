@@ -1,5 +1,6 @@
 package org.citronixx.citronix.Service;
 
+import org.citronixx.citronix.Exception.EntityNotFoundException;
 import org.citronixx.citronix.Model.MapStruct.RecolteMapper;
 import org.citronixx.citronix.Model.entites.DetailRecolte.DetailRecolte;
 import org.citronixx.citronix.Model.entites.Recolte.Recolte;
@@ -32,7 +33,7 @@ public class RecolteServiceImpl implements RecolteService {
     @Override
     public ResponseRecolteDTO getRecolteById(Long recolteId) {
         Recolte recolte = recolteRepository.findById(recolteId)
-                .orElseThrow(() -> new RuntimeException("Recolte not found with id: " + recolteId));
+                .orElseThrow(() -> new EntityNotFoundException("Recolte not found with id: " + recolteId));
         return recolteMapper.recolteToResponseRecolteDTO(recolte);
     }
 
@@ -49,7 +50,7 @@ public class RecolteServiceImpl implements RecolteService {
     public ResponseRecolteDTO updateRecolte(Long recolteId, RecolteDTO recolteDTO) {
         // Retrieve the existing Recolte entity
         Recolte existingRecolte = recolteRepository.findById(recolteId)
-                .orElseThrow(() -> new RuntimeException("Recolte not found with id: " + recolteId));
+                .orElseThrow(() -> new EntityNotFoundException("Recolte not found with id: " + recolteId));
 
         // Update fields only if provided in RecolteDTO
         if (recolteDTO.getSaison() != null) {
@@ -73,7 +74,7 @@ public class RecolteServiceImpl implements RecolteService {
     @Override
     public String deleteRecolte(Long recolteId) {
         if (!recolteRepository.existsById(recolteId)) {
-            throw new RuntimeException("Recolte not found with id: " + recolteId);
+            throw new EntityNotFoundException("Recolte not found with id: " + recolteId);
         }
         recolteRepository.deleteById(recolteId);
         return "Recolte deleted successfully!";

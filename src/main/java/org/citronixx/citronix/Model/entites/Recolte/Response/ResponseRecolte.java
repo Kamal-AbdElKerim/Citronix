@@ -8,6 +8,10 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 import org.citronixx.citronix.Model.Enum.Saison;
 import org.citronixx.citronix.Model.entites.DetailRecolte.DetailRecolteDTO;
+import org.citronixx.citronix.Model.entites.DetailRecolte.Response.ResponseDetailRecolte;
+import org.citronixx.citronix.Model.entites.Vente.Response.ResponseVente;
+import org.citronixx.citronix.Model.entites.Vente.Response.ResponseVenteDTO;
+import org.citronixx.citronix.Model.entites.Vente.Vente;
 
 import java.time.LocalDate;
 import java.util.List;
@@ -25,5 +29,9 @@ public class ResponseRecolte {
     private LocalDate dateRecolte;
 
     private double quantiteTotale;
+
+  //  private List<DetailRecolteDTO> detailsRecolte;
+
+  private List<ResponseVente> vente;
 
 }

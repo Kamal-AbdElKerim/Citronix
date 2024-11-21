@@ -1,22 +1,26 @@
 package org.citronixx.citronix.Service.Interface;
 
 
+import org.citronixx.citronix.Model.entites.Vente.Response.ResponseVenteDTO;
 import org.citronixx.citronix.Model.entites.Vente.Vente;
+import org.citronixx.citronix.Model.entites.Vente.VenteDTO;
 
 import java.util.List;
 import java.util.Optional;
 
 public interface VenteService {
 
-    Vente saveVente(Vente vente);
+    ResponseVenteDTO saveVente(Long recolteId ,VenteDTO venteDTO);
 
-    List<Vente> getAllVentes();
+    List<ResponseVenteDTO> getAllVentes();
 
-    Optional<Vente> getVenteById(Long id);
 
-    void deleteVente(Long id);
+    ResponseVenteDTO getVenteById(Long id);
 
-//    List<Vente> findByDateVente(LocalDate date);
-//
-//    double calculateRevenue(Vente vente);
+
+    boolean deleteVente(Long id);
+
+
+    ResponseVenteDTO updateVente(Long id, VenteDTO venteDTO);
+
 }

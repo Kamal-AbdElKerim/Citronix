@@ -18,5 +18,6 @@ public class ResponseDetailRecolteDTO {
     private double quantiteParArbre;
   //  private RecolteDTO recolte;
     private ResponseArbre arbre;
+
     private ResponseRecolte recolte;
 }
