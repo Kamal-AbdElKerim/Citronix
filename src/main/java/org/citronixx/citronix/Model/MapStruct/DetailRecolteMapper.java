@@ -1,11 +1,14 @@
 package org.citronixx.citronix.Model.MapStruct;
 
 
-import org.citronixx.citronix.Model.DTO.DetailRecolteDTO;
-import org.citronixx.citronix.Model.Entity.DetailRecolte;
-import org.citronixx.citronix.Model.ViewModel.DetailRecolteViewModel;
+
+import org.citronixx.citronix.Model.entites.DetailRecolte.DetailRecolte;
+import org.citronixx.citronix.Model.entites.DetailRecolte.DetailRecolteDTO;
+import org.citronixx.citronix.Model.entites.DetailRecolte.Response.ResponseDetailRecolteDTO;
 import org.mapstruct.Mapper;
 import org.mapstruct.factory.Mappers;
+
+import java.util.List;
 
 @Mapper(componentModel = "spring")
 public interface DetailRecolteMapper {
@@ -17,9 +20,11 @@ public interface DetailRecolteMapper {
     // Map from DetailRecolteDTO to DetailRecolte entity
     DetailRecolte detailRecolteDTOToDetailRecolte(DetailRecolteDTO detailRecolteDTO);
 
-    // Map from DetailRecolte entity to DetailRecolteViewModel
-    DetailRecolteViewModel detailRecolteToDetailRecolteViewModel(DetailRecolte detailRecolte);
+    // Map from DetailRecolte entity to ResponseDetailRecolteDTO
+    ResponseDetailRecolteDTO detailRecolteToResponseDetailRecolteDTO(DetailRecolte detailRecolte);
 
-    // Map from DetailRecolteViewModel to DetailRecolte entity
-    DetailRecolte detailRecolteViewModelToDetailRecolte(DetailRecolteViewModel detailRecolteViewModel);
+    List<ResponseDetailRecolteDTO> detailRecolteToResponseDetailRecolteDTO(List<DetailRecolte> detailRecoltes);
+
+    // Map from ResponseDetailRecolteDTO to DetailRecolte entity
+    DetailRecolte ResponseDetailRecolteDTOToDetailRecolte(ResponseDetailRecolteDTO ResponseDetailRecolteDTO);
 }

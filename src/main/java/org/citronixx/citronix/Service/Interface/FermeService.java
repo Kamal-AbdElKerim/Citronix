@@ -1,23 +1,21 @@
 package org.citronixx.citronix.Service.Interface;
 
-import org.citronixx.citronix.Model.DTO.FermeDTO;
-import org.citronixx.citronix.Model.Entity.Ferme;
-import org.citronixx.citronix.Model.ViewModel.FermeViewModel;
+import org.citronixx.citronix.Model.entites.Ferme.FermeDTO;
+import org.citronixx.citronix.Model.entites.Ferme.Response.ResponseFermeDTO;
 
 import java.util.List;
-import java.util.Optional;
 
 public interface FermeService {
 
-    FermeViewModel saveFerme(FermeDTO fermeDTO);
+    ResponseFermeDTO saveFerme(FermeDTO fermeDTO);
 
-    List<FermeViewModel> getAllFermes();
+    List<ResponseFermeDTO> getAllFermes();
 
-    FermeViewModel getFermeById(Long id);
+    ResponseFermeDTO getFermeById(Long id);
 
     boolean deleteFerme(Long id);
 
    // List<Ferme> findByNom(String nom);
 
-    FermeViewModel updateFerme(Long id, FermeDTO fermeDTO);
+    ResponseFermeDTO updateFerme(Long id, FermeDTO fermeDTO);
 }

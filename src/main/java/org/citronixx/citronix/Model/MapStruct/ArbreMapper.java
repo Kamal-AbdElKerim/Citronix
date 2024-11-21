@@ -1,12 +1,17 @@
 package org.citronixx.citronix.Model.MapStruct;
 
-import org.citronixx.citronix.Model.DTO.ArbreDTO;
-import org.citronixx.citronix.Model.Entity.Arbre;
-import org.citronixx.citronix.Model.ViewModel.ArbreViewModel;
+
+import org.citronixx.citronix.Model.entites.Arbre.Arbre;
+import org.citronixx.citronix.Model.entites.Arbre.ArbreDTO;
+import org.citronixx.citronix.Model.entites.Arbre.Response.ResponseArbreDTO;
+import org.citronixx.citronix.Model.entites.Champ.Response.ResponseChamp;
 import org.mapstruct.Mapper;
+import org.mapstruct.Mapping;
 import org.mapstruct.factory.Mappers;
 
-@Mapper(componentModel = "spring")
+import java.util.List;
+
+@Mapper(componentModel = "spring", uses = {ChampMapper.class})
 public interface ArbreMapper {
 
     ArbreMapper INSTANCE = Mappers.getMapper(ArbreMapper.class);
@@ -16,9 +21,15 @@ public interface ArbreMapper {
     // Map from ArbreDTO to Arbre entity
     Arbre arbreDTOToArbre(ArbreDTO arbreDTO);
 
-    // Map from Arbre entity to ArbreViewModel
-    ArbreViewModel arbreToArbreViewModel(Arbre arbre);
+    // Map from Arbre entity to ResponseArbreDTO
 
-    // Map from ArbreViewModel to Arbre entity
-    Arbre arbreViewModelToArbre(ArbreViewModel arbreViewModel);
+
+    @Mapping(target = "datePlantation", source = "datePlantation")
+    @Mapping(target = "champ", source = "champ") // Uses ChampMapper implicitly
+    @Mapping(target = "age", expression = "java(arbre.calculateAge())")
+    @Mapping(target = "productivity", expression = "java(arbre.calculateProductivity())")
+    ResponseArbreDTO arbreToResponseArbreDTO(Arbre arbre);
+    List<ResponseArbreDTO> arbreToResponseArbreDTO(List<Arbre> arbres);
+    // Map from ResponseArbreDTO to Arbre entity
+    Arbre ResponseArbreDTOToArbre(ResponseArbreDTO ResponseArbreDTO);
 }

@@ -1,22 +1,24 @@
 package org.citronixx.citronix.Service.Interface;
 
-import org.citronixx.citronix.Model.Entity.Arbre;
-import org.citronixx.citronix.Model.Entity.Champ;
+
+import org.citronixx.citronix.Model.entites.Arbre.Arbre;
+import org.citronixx.citronix.Model.entites.Arbre.ArbreDTO;
+import org.citronixx.citronix.Model.entites.Arbre.Response.ResponseArbreDTO;
 
 import java.util.List;
 import java.util.Optional;
 
 public interface ArbreService {
 
-    Arbre saveArbre(Arbre arbre);
+    ResponseArbreDTO addArbreToChamp(Long champId ,ArbreDTO arbreDTO);
 
-    List<Arbre> getAllArbres();
+    List<ResponseArbreDTO> getAllArbres();
 
-    Optional<Arbre> getArbreById(Long id);
+    ResponseArbreDTO getArbreById(Long id);
 
     void deleteArbre(Long id);
-//
-//    List<Arbre> findByChamp(Champ champ);
+
+      ResponseArbreDTO updateArbre(Long arbreId, ArbreDTO arbreDTO);
 //
 //    List<Arbre> findByAgeGreaterThan(int age);
 }

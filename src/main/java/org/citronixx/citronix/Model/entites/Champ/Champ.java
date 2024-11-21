@@ -1,12 +1,12 @@
-package org.citronixx.citronix.Model.Entity;
+package org.citronixx.citronix.Model.entites.Champ;
 
-import com.fasterxml.jackson.annotation.JsonBackReference;
-import jakarta.persistence.CascadeType;
 import jakarta.persistence.*;
-import jakarta.validation.constraints.*;
 import lombok.*;
+import org.citronixx.citronix.Model.entites.Arbre.Arbre;
+import org.citronixx.citronix.Model.entites.Ferme.Ferme;
 
 import java.util.List;
+
 @Entity
 @Getter
 @Setter
@@ -24,7 +24,6 @@ public class Champ {
 
     @ManyToOne
     @JoinColumn(name = "ferme_id", nullable = false)
- @JsonBackReference
     private Ferme ferme;
 
     @OneToMany(mappedBy = "champ", cascade = CascadeType.ALL, orphanRemoval = true)

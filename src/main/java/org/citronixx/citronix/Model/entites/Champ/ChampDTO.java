@@ -1,16 +1,10 @@
-package org.citronixx.citronix.Model.DTO;
+package org.citronixx.citronix.Model.entites.Champ;
 
-import jakarta.persistence.CascadeType;
-import jakarta.persistence.Entity;
-import jakarta.persistence.JoinColumn;
-import jakarta.persistence.OneToMany;
-import jakarta.validation.constraints.DecimalMax;
-import jakarta.validation.constraints.DecimalMin;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.Size;
 import lombok.*;
-import org.citronixx.citronix.Model.Entity.Arbre;
-import org.citronixx.citronix.Model.Entity.Ferme;
+import org.citronixx.citronix.Model.entites.Arbre.ArbreDTO;
+import org.citronixx.citronix.Model.entites.Ferme.FermeDTO;
 
 import java.util.List;
 
@@ -32,5 +26,5 @@ public class ChampDTO {
 
     private FermeDTO ferme;
 
-    private List<ArbreDTO> arbres;
+   private List<ArbreDTO> arbres;
 }
