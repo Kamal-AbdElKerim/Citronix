@@ -68,8 +68,16 @@ public class ArbreServiceImpl implements ArbreService {
 
         // Validate the tree density
         int existingArbres = champ.getArbres().size();
-        double superficie = champ.getSuperficie(); // in m²
-        int maxArbres = (int) (superficie / 100); // Max density: 10 trees per 1,000 m²
+        System.out.println("existingArbres: " + existingArbres);
+
+// Assuming champ.getSuperficie() returns the area in hectares
+        double superficieHectares = champ.getSuperficie(); // in hectares
+        double superficieM2 = superficieHectares * 10000; // Convert hectares to m²
+
+// Max density: 10 trees per 1,000 m²
+        int maxArbres = (int) (superficieM2 / 100); // Max number of trees that can be planted
+        System.out.println("maxArbres: " + maxArbres);
+
         if (existingArbres >= maxArbres) {
             throw new ValidationException("Trees","Maximum tree density exceeded for this Champ.");
         }
@@ -91,8 +99,9 @@ public class ArbreServiceImpl implements ArbreService {
     }
 
     @Override
-    public void deleteArbre(Long id) {
+    public String deleteArbre(Long id) {
         arbreRepository.deleteById(id);
+        return "deleted" ;
     }
 
    @Override

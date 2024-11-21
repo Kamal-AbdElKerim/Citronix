@@ -11,6 +11,7 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 import org.citronixx.citronix.Model.Enum.Saison;
 import org.citronixx.citronix.Model.entites.DetailRecolte.DetailRecolteDTO;
+import org.citronixx.citronix.Model.entites.DetailRecolte.Response.ResponseDetailRecolte;
 
 import java.time.LocalDate;
 import java.util.List;
@@ -29,5 +30,5 @@ public class ResponseRecolteDTO {
     private LocalDate dateRecolte;
 
     private double quantiteTotale;
-    private List<DetailRecolteDTO> detailsRecolte;
+    private List<ResponseDetailRecolte> detailsRecolte;
 }

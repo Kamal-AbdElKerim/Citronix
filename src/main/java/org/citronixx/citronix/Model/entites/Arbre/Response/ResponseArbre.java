@@ -22,7 +22,7 @@ public class ResponseArbre {
     private LocalDate datePlantation;
 
     private Integer age;
-    private ResponseChamp champ;
+   // private ResponseChamp champ;
 
 
 

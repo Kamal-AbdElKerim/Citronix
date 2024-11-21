@@ -18,8 +18,5 @@ public class ArbreDTO {
     @Past(message = "La date de plantation doit être une date passée.")
     private LocalDate datePlantation;
 
-
-    @Max(value = 20, message = "L'âge d'un arbre productif ne peut pas dépasser 20 ans.")
-    private Integer age;
     private ChampDTO champ;
 }

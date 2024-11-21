@@ -19,5 +19,5 @@ public interface DetailRecolteService {
 
     String deleteDetailRecolte(Long id);
 
-    ResponseDetailRecolteDTO updateDetailRecolteToArbre(Long detailRecolteId, DetailRecolteDTO detailRecolteDTO);
+    ResponseDetailRecolteDTO updateDetailRecolte(Long detailRecolteId, DetailRecolteDTO detailRecolteDTO);
 }
