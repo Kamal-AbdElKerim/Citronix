@@ -16,7 +16,7 @@ public interface ArbreService {
 
     ResponseArbreDTO getArbreById(Long id);
 
-    void deleteArbre(Long id);
+    String deleteArbre(Long id);
 
       ResponseArbreDTO updateArbre(Long arbreId, ArbreDTO arbreDTO);
 //

@@ -8,6 +8,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.List;
+
 @RequestMapping("/api/arbres")
 @RestController
 public class ArbreController {
@@ -16,7 +18,7 @@ public class ArbreController {
     private ArbreServiceImpl arbreService;
 
     // Add an Arbre to a Champ
-    @PostMapping("/{champId}")
+    @PostMapping("/champ/{champId}")
     public ResponseEntity<ResponseArbreDTO> addArbreToChamp(
             @PathVariable long champId,
             @RequestBody @Valid ArbreDTO arbreDTO) {
@@ -24,12 +26,6 @@ public class ArbreController {
         return ResponseEntity.ok(createdArbre);
     }
 
-    // Get all Arbres for a specific Champ
-//    @GetMapping("/champ/{champId}")
-//    public ResponseEntity<List<ResponseArbreDTO>> getArbresByChamp(@PathVariable Long champId) {
-//        List<ResponseArbreDTO> arbres = arbreService.getArbresByChamp(champId);
-//        return ResponseEntity.ok(arbres);
-//    }
 
     // Get Arbre details by ID
     @GetMapping("/{arbreId}")
@@ -37,31 +33,31 @@ public class ArbreController {
         ResponseArbreDTO arbre = arbreService.getArbreById(arbreId);
         return ResponseEntity.ok(arbre);
     }
-//
-//    // Get all Arbres
-//    @GetMapping
-//    public ResponseEntity<List<ResponseArbreDTO>> getAllArbres() {
-//        List<ResponseArbreDTO> arbres = arbreService.getAllArbres();
-//        return ResponseEntity.ok(arbres);
-//    }
-//
-//    // Update an Arbre
-//    @PutMapping("/{arbreId}")
-//    public ResponseEntity<ResponseArbreDTO> updateArbre(
-//            @PathVariable String arbreId,
-//            @RequestBody @Valid ArbreDTO arbreDTO) {
-//        ResponseArbreDTO updatedArbre = arbreService.updateArbre(arbreId, arbreDTO);
-//        return ResponseEntity.ok(updatedArbre);
-//    }
-//
-//    // Delete an Arbre
-//    @DeleteMapping("/{arbreId}")
-//    public ResponseEntity<String> deleteArbre(@PathVariable String arbreId) {
-//        String message = arbreService.deleteArbre(arbreId);
-//        return ResponseEntity.ok(message);
-//    }
 
-    // Remove all non-productive Arbres
+    // Get all Arbres
+    @GetMapping
+    public ResponseEntity<List<ResponseArbreDTO>> getAllArbres() {
+        List<ResponseArbreDTO> arbres = arbreService.getAllArbres();
+        return ResponseEntity.ok(arbres);
+    }
+
+    // Update an Arbre
+    @PutMapping("/{arbreId}")
+    public ResponseEntity<ResponseArbreDTO> updateArbre(
+            @PathVariable Long arbreId,
+            @RequestBody @Valid ArbreDTO arbreDTO) {
+        ResponseArbreDTO updatedArbre = arbreService.updateArbre(arbreId, arbreDTO);
+        return ResponseEntity.ok(updatedArbre);
+    }
+
+    // Delete an Arbre
+    @DeleteMapping("/{arbreId}")
+    public ResponseEntity<String> deleteArbre(@PathVariable Long arbreId) {
+        String message = arbreService.deleteArbre(arbreId);
+        return ResponseEntity.ok(message);
+    }
+
+   //  Remove all non-productive Arbres
 //    @DeleteMapping("/non-productive")
 //    public ResponseEntity<String> removeNonProductiveArbres() {
 //        int removedCount = arbreService.removeNonProductiveArbres();

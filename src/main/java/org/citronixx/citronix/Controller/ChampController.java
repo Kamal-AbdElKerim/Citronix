@@ -20,7 +20,7 @@ public class ChampController {
     private ChampServiceImpl champService;
 
     // Add a Champ to a Ferme
-    @PostMapping("/{fermeId}")
+    @PostMapping("/ferme/{fermeId}")
     public ResponseEntity<ResponseChampDTO> addChampToFerme(
             @PathVariable Long fermeId,
             @RequestBody @Valid ChampDTO champDTO) {

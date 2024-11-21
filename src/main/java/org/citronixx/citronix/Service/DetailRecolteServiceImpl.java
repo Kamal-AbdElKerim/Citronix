@@ -77,16 +77,14 @@ public class DetailRecolteServiceImpl implements DetailRecolteService {
     }
 
     @Override
-public ResponseDetailRecolteDTO updateDetailRecolteToArbre(Long detailRecolteId, DetailRecolteDTO detailRecolteDTO) {
+public ResponseDetailRecolteDTO updateDetailRecolte(Long detailRecolteId, DetailRecolteDTO detailRecolteDTO) {
     // Retrieve the existing DetailRecolte
     DetailRecolte existingDetailRecolte = detailRecolteRepository.findById(detailRecolteId)
             .orElseThrow(() -> new EntityNotFoundException("DetailRecolte not found with ID: " + detailRecolteId));
 
-    // Retrieve associated Arbre and Recolte for validation purposes
     Arbre arbre = existingDetailRecolte.getArbre();
-    Recolte recolte = existingDetailRecolte.getRecolte();
 
-    // Validate the updated quantity does not exceed the tree's productivity
+
     if (detailRecolteDTO.getQuantiteParArbre() > arbre.calculateProductivity()) {
         throw new ValidationException(
                 "arbre",
@@ -95,16 +93,12 @@ public ResponseDetailRecolteDTO updateDetailRecolteToArbre(Long detailRecolteId,
         );
     }
 
-    // Update the fields of DetailRecolte
     if (detailRecolteDTO.getQuantiteParArbre() != 0.0) {
         existingDetailRecolte.setQuantiteParArbre(detailRecolteDTO.getQuantiteParArbre());
     }
-    // Note: If the Recolte can be updated, add logic here. Otherwise, skip it.
 
-    // Save the updated DetailRecolte
     DetailRecolte updatedDetailRecolte = detailRecolteRepository.save(existingDetailRecolte);
 
-    // Map to Response DTO and return
     return detailRecolteMapper.detailRecolteToResponseDetailRecolteDTO(updatedDetailRecolte);
 }
 

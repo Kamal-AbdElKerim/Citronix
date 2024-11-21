@@ -31,6 +31,12 @@ public class DetailRecolteController {
 
 
     // Get a specific DetailRecolte by its ID
+    @GetMapping()
+    public ResponseEntity<List<ResponseDetailRecolteDTO>> getAllDetailRecolte() {
+        List<ResponseDetailRecolteDTO> recolte = detailRecolteService.getAllDetailRecoltes();
+        return ResponseEntity.ok(recolte);
+    }
+
     @GetMapping("/{detailrecolteId}")
     public ResponseEntity<ResponseDetailRecolteDTO> getDetailRecolteById(@PathVariable Long detailrecolteId) {
         ResponseDetailRecolteDTO recolte = detailRecolteService.getDetailRecolteById(detailrecolteId);
@@ -38,13 +44,13 @@ public class DetailRecolteController {
     }
 
     // Update a specific DetailRecolte
-  //  @PutMapping("/{recolteId}")
-//    public ResponseEntity<ResponseDetailRecolteDTO> updateDetailRecolte(
-//            @PathVariable Long recolteId,
-//            @RequestBody @Valid DetailRecolteDTO detailRecolteDTO) {
-//        ResponseDetailRecolteDTO updatedRecolte = detailRecolteService.updateDetailRecolte(recolteId, detailRecolteDTO);
-//        return ResponseEntity.ok(updatedRecolte);
-//    }
+    @PutMapping("/{recolteId}")
+    public ResponseEntity<ResponseDetailRecolteDTO> updateDetailRecolte(
+            @PathVariable Long recolteId,
+            @RequestBody @Valid DetailRecolteDTO detailRecolteDTO) {
+        ResponseDetailRecolteDTO updatedRecolte = detailRecolteService.updateDetailRecolte(recolteId, detailRecolteDTO);
+        return ResponseEntity.ok(updatedRecolte);
+    }
 
     // Delete a specific DetailRecolte
     @DeleteMapping("/{recolteId}")

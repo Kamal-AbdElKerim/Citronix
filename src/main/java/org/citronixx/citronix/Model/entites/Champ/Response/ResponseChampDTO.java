@@ -1,6 +1,7 @@
 package org.citronixx.citronix.Model.entites.Champ.Response;
 
 import lombok.*;
+import org.citronixx.citronix.Model.entites.Arbre.Response.ResponseArbre;
 import org.citronixx.citronix.Model.entites.Arbre.Response.ResponseArbreDTO;
 import org.citronixx.citronix.Model.entites.Ferme.FermeDTO;
 import org.citronixx.citronix.Model.entites.Ferme.Response.ResponseFerme;
@@ -22,7 +23,7 @@ public class ResponseChampDTO {
 
     private double superficie;
 
-    private ResponseFerme ferme;
+   // private ResponseFerme ferme;
 
-    private List<ResponseArbreDTO> arbres;
+    private List<ResponseArbre> arbres;
 }
