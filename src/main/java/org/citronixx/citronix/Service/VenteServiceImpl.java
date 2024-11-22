@@ -42,8 +42,7 @@ public class VenteServiceImpl implements VenteService {
     @Autowired
     private RecolteRepository recolteRepository;
 
-    @Autowired
-    private RecolteMapper recolteMapper;
+
 
     @Autowired
     private DetailRecolteRepository detailRecolteRepository ;
