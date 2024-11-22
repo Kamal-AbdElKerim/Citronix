@@ -29,5 +29,5 @@ public class ResponseVenteDTO {
 
     private String client;
 
-    private ResponseRecolte recolte;
+    private RecolteDTO recolte;
 }

@@ -16,6 +16,7 @@ public interface ChampMapper {
     ChampMapper INSTANCE = Mappers.getMapper(ChampMapper.class);
     // Map from Champ entity to ChampDTO
     ChampDTO champToChampDTO(Champ champ);
+    List<ChampDTO> champToChampDTO(List<Champ> champ);
 
     // Map from ChampDTO to Champ entity
     Champ champDTOToChamp(ChampDTO champDTO);

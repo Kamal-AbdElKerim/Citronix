@@ -27,6 +27,7 @@ public class ResponseArbreDTO {
 
     private double productivity;
 
+
     private ResponseChamp champ;
 
     private List<ResponseDetailRecolte> detailRecoltes ;

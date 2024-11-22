@@ -34,8 +34,8 @@ public class ResponseRecolteDTO {
 
     private double quantiteTotale;
 
-    private List<ResponseDetailRecolte> detailsRecolte;
+    private List<DetailRecolteDTO> detailsRecolte;
 
-  private List<ResponseVente> vente;
+    private ResponseVente vente;
 
 }

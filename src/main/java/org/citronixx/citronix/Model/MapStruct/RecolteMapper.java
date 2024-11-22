@@ -4,6 +4,7 @@ package org.citronixx.citronix.Model.MapStruct;
 import org.citronixx.citronix.Model.entites.DetailRecolte.DetailRecolte;
 import org.citronixx.citronix.Model.entites.Recolte.Recolte;
 import org.citronixx.citronix.Model.entites.Recolte.RecolteDTO;
+import org.citronixx.citronix.Model.entites.Recolte.Response.ResponseRecolte;
 import org.citronixx.citronix.Model.entites.Recolte.Response.ResponseRecolteDTO;
 import org.mapstruct.Mapper;
 import org.mapstruct.Mapping;
@@ -24,6 +25,13 @@ public interface RecolteMapper {
 
     Recolte recolteDTOToRecolte(RecolteDTO recolteDTO);
 
+    @Mappings({
+            @Mapping(target = "quantiteTotale", expression = "java(calculateQuantiteTotale(recolte))")
+    })
+    List<ResponseRecolte> recolteToResponseRecolte(List<Recolte> recolte);
+    @Mapping(target = "quantiteTotale", expression = "java(calculateQuantiteTotale(recolte))")
+    ResponseRecolte recolteToResponseRecolte(Recolte recolte);
+
     // Map from Recolte entity to ResponseRecolteDTO
     @Mappings({
             @Mapping(target = "quantiteTotale", expression = "java(calculateQuantiteTotale(recolte))")
@@ -39,7 +47,7 @@ public interface RecolteMapper {
 
     // Helper method to calculate quantiteTotale for Recolte
     default double calculateQuantiteTotale(Recolte recolte) {
-
+        System.out.println("hello");
         return (recolte.getDetailsRecolte() != null ? recolte.getDetailsRecolte().stream()
                 .mapToDouble(DetailRecolte::getQuantiteParArbre)
                 .sum() : 0);

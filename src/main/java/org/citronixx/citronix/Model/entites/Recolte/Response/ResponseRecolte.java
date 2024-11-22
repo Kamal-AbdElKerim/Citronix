@@ -32,6 +32,6 @@ public class ResponseRecolte {
 
   //  private List<DetailRecolteDTO> detailsRecolte;
 
-  private List<ResponseVente> vente;
+ private ResponseVente vente;
 
 }

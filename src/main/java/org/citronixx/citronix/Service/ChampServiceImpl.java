@@ -28,7 +28,7 @@ public class ChampServiceImpl implements ChampService {
     private ChampMapper champMapper;
 
     @Override
-    public ResponseChampDTO addChampToFerme(Long fermeId, ChampDTO champDTO) {
+    public ChampDTO addChampToFerme(Long fermeId, ChampDTO champDTO) {
 
         Ferme ferme = fermeRepository.findById(fermeId)
                 .orElseThrow(() -> new EntityNotFoundException("Ferme not found with ID: " + fermeId));
@@ -46,7 +46,7 @@ public class ChampServiceImpl implements ChampService {
         Champ savedChamp = champRepository.save(champ);
 
 
-        return  champMapper.champToResponseChampDTO(savedChamp);
+        return  champMapper.champToChampDTO(savedChamp);
     }
 
     public void ValidationChamp(ChampDTO champDTO , Ferme ferme) {
@@ -77,11 +77,11 @@ public class ChampServiceImpl implements ChampService {
 
 
     @Override
-    public List<ResponseChampDTO> getAllChamps() {
+    public List<ChampDTO> getAllChamps() {
         List<Champ> champs =  champRepository.findAll();
         System.out.println(champs);
 
-      return  champMapper.champToResponseChampDTO(champs);
+      return  champMapper.champToChampDTO(champs);
     }
 
 //    public  List<ResponseChampDTO> ListChampsToResponseChampDTOs(List<Champ> champs) {
@@ -113,10 +113,10 @@ public class ChampServiceImpl implements ChampService {
 //    }
 
     @Override
-    public ResponseChampDTO getChampById(Long id) {
+    public ChampDTO getChampById(Long id) {
         Champ champ = champRepository.findById(id)
                 .orElseThrow(() -> new EntityNotFoundException("Champ with ID " + id + " not found"));;
-        return champMapper.champToResponseChampDTO(champ);
+        return champMapper.champToChampDTO(champ);
     }
 
 

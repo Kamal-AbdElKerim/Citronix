@@ -19,10 +19,10 @@ public class Vente {
     private LocalDate date;
     private double prixUnitaire;
     private String client;
-    private double revenu;
-    @ManyToOne
+    @OneToOne
     @JoinColumn(name = "recolte_id", nullable = false)
     private Recolte recolte;
+
 
 
 }

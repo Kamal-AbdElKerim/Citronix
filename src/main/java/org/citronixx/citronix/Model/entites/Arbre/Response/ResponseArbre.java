@@ -26,7 +26,7 @@ public class ResponseArbre {
    // private ResponseChamp champ;
 
 
-    private List<ResponseDetailRecolte> detailRecoltes ;
+   private List<ResponseDetailRecolte> detailRecoltes ;
 
 
 }

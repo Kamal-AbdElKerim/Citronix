@@ -10,7 +10,7 @@ import java.util.Optional;
 
 public interface RecolteService {
 
-    ResponseRecolteDTO addRecolte(RecolteDTO recolteDTO);
+    ResponseRecolteDTO addRecolte(Long fermeId , RecolteDTO recolteDTO);
 
     ResponseRecolteDTO getRecolteById(Long recolteId);
 

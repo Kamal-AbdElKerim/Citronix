@@ -40,6 +40,14 @@ public class DetailRecolteServiceImpl implements DetailRecolteService {
                 .orElseThrow(() -> new EntityNotFoundException("arbre not found with ID: " + arbreId));
         Recolte recolte = recolteRepository.findById(recolteID)
                 .orElseThrow(() -> new EntityNotFoundException("recolte not found with ID: " + recolteID));
+
+        if (detailRecolteRepository.existsByRecolteIdAndArbreId(recolteID, arbreId)) {
+            throw new ValidationException(
+                    "arbre",
+                    "arbre has already been assigned to a Recolte"
+            );
+        }
+
         if (arbre.calculateProductivity() < detailRecolteDTO.getQuantiteParArbre()) {
             throw new ValidationException(
                     "arbre",

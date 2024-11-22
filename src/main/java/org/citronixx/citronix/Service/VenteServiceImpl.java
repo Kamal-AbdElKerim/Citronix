@@ -8,13 +8,17 @@ import jakarta.persistence.criteria.CriteriaQuery;
 import jakarta.persistence.criteria.Predicate;
 import jakarta.persistence.criteria.Root;
 import org.citronixx.citronix.Exception.EntityNotFoundException;
+import org.citronixx.citronix.Exception.ValidationException;
 import org.citronixx.citronix.Model.MapStruct.RecolteMapper;
+import org.citronixx.citronix.Model.entites.DetailRecolte.DetailRecolte;
 import org.citronixx.citronix.Model.entites.Recolte.Recolte;
+import org.citronixx.citronix.Model.entites.Recolte.RecolteDTO;
 import org.citronixx.citronix.Model.entites.Recolte.Response.ResponseRecolteDTO;
 import org.citronixx.citronix.Model.entites.Vente.VenteDTO;
 import org.citronixx.citronix.Model.entites.Vente.Vente;
 import org.citronixx.citronix.Model.entites.Vente.Response.ResponseVenteDTO;
 import org.citronixx.citronix.Model.MapStruct.VenteMapper;
+import org.citronixx.citronix.Repository.DetailRecolteRepository;
 import org.citronixx.citronix.Repository.RecolteRepository;
 import org.citronixx.citronix.Repository.VenteRepository;
 import org.citronixx.citronix.Service.Interface.VenteService;
@@ -24,6 +28,7 @@ import org.springframework.stereotype.Service;
 import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.stream.Collectors;
 
 @Service
 public class VenteServiceImpl implements VenteService {
@@ -40,30 +45,70 @@ public class VenteServiceImpl implements VenteService {
     @Autowired
     private RecolteMapper recolteMapper;
 
+    @Autowired
+    private DetailRecolteRepository detailRecolteRepository ;
+
 
     @Override
-    public ResponseVenteDTO saveVente(Long recolteId ,VenteDTO venteDTO) {
-      Recolte recolte = recolteRepository.findById(recolteId)
-                .orElseThrow(() -> new EntityNotFoundException("recolte not found with ID: " + recolteId));
+    public ResponseVenteDTO saveVente(Long recolteId, VenteDTO venteDTO) {
 
-        ResponseRecolteDTO responseRecolteDTO =  recolteMapper.recolteToResponseRecolteDTO(recolte) ;
-        double revenue = responseRecolteDTO.getQuantiteTotale() * venteDTO.getPrixUnitaire();
+        Recolte recolte = recolteRepository.findById(recolteId)
+                .orElseThrow(() -> new EntityNotFoundException("Recolte not found with id: " + recolteId));
+
+        if (recolte.getVente() != null) {
+            throw new ValidationException("vente", "A Vente already exists for this Recolte.");
+        }
+
+        List<DetailRecolte> detailRecolteByRecolteId = detailRecolteRepository.findByRecolteId(recolteId);
+        double sumQuantiteParArbre = detailRecolteByRecolteId.stream()
+                .mapToDouble(DetailRecolte::getQuantiteParArbre)
+                .sum();
+        double revenue = sumQuantiteParArbre * venteDTO.getPrixUnitaire();
 
         venteDTO.setDate(LocalDate.now());
         Vente vente = venteMapper.venteDTOToVente(venteDTO);
         vente.setRecolte(recolte);
-        vente.setRevenu(revenue);
+        recolte.setVente(vente);
+
         Vente savedVente = venteRepository.save(vente);
-        return venteMapper.venteToResponseVenteDTO(savedVente);
+
+        ResponseVenteDTO responseVenteDTO = venteMapper.venteToResponseVenteDTO(savedVente);
+        responseVenteDTO.setRevenu(revenue);
+
+        return responseVenteDTO;
     }
+
 
 
 
     @Override
     public List<ResponseVenteDTO> getAllVentes() {
+        // Fetch all Vente entities
         List<Vente> ventes = venteRepository.findAll();
-        return venteMapper.venteToResponseVenteDTO(ventes);
+
+        // Map each Vente to a ResponseVenteDTO
+        List<ResponseVenteDTO> responseVenteDTOs = ventes.stream().map(vente -> {
+            Long recolteId = vente.getRecolte().getId(); // Ensure Vente has a reference to Recolte
+            List<DetailRecolte> detailRecolteByRecolteId = detailRecolteRepository.findByRecolteId(recolteId);
+
+            // Calculate the sum of QuantiteParArbre
+            double sumQuantiteParArbre = detailRecolteByRecolteId.stream()
+                    .mapToDouble(DetailRecolte::getQuantiteParArbre)
+                    .sum();
+
+            // Calculate revenue
+            double revenue = sumQuantiteParArbre * vente.getPrixUnitaire();
+
+            // Map Vente to ResponseVenteDTO and set the revenue
+            ResponseVenteDTO responseVenteDTO = venteMapper.venteToResponseVenteDTO(vente);
+            responseVenteDTO.setRevenu(revenue);
+
+            return responseVenteDTO;
+        }).collect(Collectors.toList());
+
+        return responseVenteDTOs;
     }
+
 
     @Override
     public ResponseVenteDTO getVenteById(Long id) {
@@ -75,7 +120,9 @@ public class VenteServiceImpl implements VenteService {
     @Override
     public boolean deleteVente(Long id) {
         if (venteRepository.existsById(id)) {
-            venteRepository.deleteById(id);
+            Vente vente = venteRepository.findById(id)
+                    .orElseThrow(() -> new EntityNotFoundException("Vente with ID " + id + " not found"));
+            venteRepository.delete(vente);
             return true;
         } else {
             throw new EntityNotFoundException("Vente with ID " + id + " not found");
@@ -83,17 +130,36 @@ public class VenteServiceImpl implements VenteService {
     }
 
     @Override
-    public ResponseVenteDTO updateVente(Long id, VenteDTO venteDTO) {
-        Vente existingVente = venteRepository.findById(id)
-                .orElseThrow(() -> new EntityNotFoundException("Vente with ID " + id + " not found"));
+    public ResponseVenteDTO updateVente(Long venteId, VenteDTO venteDTO) {
+        // Check if the Vente exists
+        Vente existingVente = venteRepository.findById(venteId)
+                .orElseThrow(() -> new EntityNotFoundException("Vente not found with id: " + venteId));
 
-        Vente updatedVente = existingVente.toBuilder()
-                .client(existingVente.getClient())
-                .build();
+        // Update the existing Vente's fields
+        existingVente.setPrixUnitaire(venteDTO.getPrixUnitaire());
+        existingVente.setClient(venteDTO.getClient());
+        existingVente.setDate(venteDTO.getDate() != null ? venteDTO.getDate() : LocalDate.now());
 
-        Vente savedVente = venteRepository.save(updatedVente);
+        // Recalculate revenue based on the associated Recolte
+        Recolte recolte = existingVente.getRecolte();
+        if (recolte == null) {
+            throw new ValidationException("recolte", "The Vente is not associated with any Recolte.");
+        }
 
-        return venteMapper.venteToResponseVenteDTO(savedVente);
+        List<DetailRecolte> detailRecolteByRecolteId = detailRecolteRepository.findByRecolteId(recolte.getId());
+        double sumQuantiteParArbre = detailRecolteByRecolteId.stream()
+                .mapToDouble(DetailRecolte::getQuantiteParArbre)
+                .sum();
+        double revenue = sumQuantiteParArbre * venteDTO.getPrixUnitaire();
+
+        // Save the updated Vente
+        Vente updatedVente = venteRepository.save(existingVente);
+
+        // Map to Response DTO
+        ResponseVenteDTO responseVenteDTO = venteMapper.venteToResponseVenteDTO(updatedVente);
+        responseVenteDTO.setRevenu(revenue);
+
+        return responseVenteDTO;
     }
 
 

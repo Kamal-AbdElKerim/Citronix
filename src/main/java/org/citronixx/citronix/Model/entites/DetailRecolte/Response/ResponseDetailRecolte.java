@@ -17,6 +17,6 @@ import org.citronixx.citronix.Model.entites.Recolte.Response.ResponseRecolteDTO;
 public class ResponseDetailRecolte {
     private Long id;
     private double quantiteParArbre;
-  private ResponseRecolte recolte;
+    private ResponseRecolte recolte;
    // private ResponseArbre arbre;
 }

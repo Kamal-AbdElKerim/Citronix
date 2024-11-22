@@ -3,6 +3,7 @@ package org.citronixx.citronix.Model.entites.Ferme;
 import jakarta.persistence.*;
 import lombok.*;
 import org.citronixx.citronix.Model.entites.Champ.Champ;
+import org.citronixx.citronix.Model.entites.Recolte.Recolte;
 
 import java.time.LocalDate;
 import java.util.List;
@@ -26,6 +27,9 @@ public class Ferme {
 
     @OneToMany(mappedBy = "ferme", cascade = CascadeType.ALL, orphanRemoval = true)
     private List<Champ> champs;
+
+    @OneToMany(mappedBy = "ferme", cascade = CascadeType.ALL, orphanRemoval = true)
+    private List<Recolte> Recoltes;
 }
 
 
