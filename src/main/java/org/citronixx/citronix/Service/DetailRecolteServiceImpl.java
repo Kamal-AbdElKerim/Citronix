@@ -41,6 +41,8 @@ public class DetailRecolteServiceImpl implements DetailRecolteService {
         Recolte recolte = recolteRepository.findById(recolteID)
                 .orElseThrow(() -> new EntityNotFoundException("recolte not found with ID: " + recolteID));
 
+
+
         if (detailRecolteRepository.existsByRecolteIdAndArbreId(recolteID, arbreId)) {
             throw new ValidationException(
                     "arbre",
@@ -60,6 +62,16 @@ public class DetailRecolteServiceImpl implements DetailRecolteService {
         detailRecolte.setArbre(arbre);
         detailRecolte.setRecolte(recolte);
         DetailRecolte detailRecoltes = detailRecolteRepository.save(detailRecolte);
+        List<DetailRecolte> detailRecolteByRecolteId = detailRecolteRepository.findByRecolteId(recolte.getId());
+
+        // Calculate the sum of QuantiteParArbre
+        double sumQuantiteParArbre = detailRecolteByRecolteId.stream()
+                .mapToDouble(DetailRecolte::getQuantiteParArbre)
+                .sum();
+
+        recolte.setQuantiteTotale(sumQuantiteParArbre);
+
+        recolteRepository.save(recolte);
         return detailRecolteMapper.detailRecolteToResponseDetailRecolteDTO(detailRecoltes);
     }
 

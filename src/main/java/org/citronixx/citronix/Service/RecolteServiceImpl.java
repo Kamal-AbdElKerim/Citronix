@@ -10,6 +10,7 @@ import org.citronixx.citronix.Model.entites.Recolte.Recolte;
 import org.citronixx.citronix.Model.entites.Recolte.RecolteDTO;
 import org.citronixx.citronix.Model.entites.Recolte.Response.ResponseRecolteDTO;
 import org.citronixx.citronix.Repository.ChampRepository;
+import org.citronixx.citronix.Repository.DetailRecolteRepository;
 import org.citronixx.citronix.Repository.FermeRepository;
 import org.citronixx.citronix.Repository.RecolteRepository;
 import org.citronixx.citronix.Service.Interface.RecolteService;
@@ -30,7 +31,7 @@ public class RecolteServiceImpl implements RecolteService {
     private RecolteMapper recolteMapper;
 
     @Autowired
-    private FermeRepository fermeRepository;
+    private DetailRecolteRepository detailRecolteRepository ;
 
     @Autowired
     private ChampRepository champRepository;
@@ -49,8 +50,11 @@ public class RecolteServiceImpl implements RecolteService {
             throw new ValidationException("recolte", "A recolte with the same season and year already exists for this farm.");
         }
 
+
+
         // Map DTO to entity and set the farm
         Recolte recolte = recolteMapper.recolteDTOToRecolte(recolteDTO);
+
 
         recolte.setChamp(champ);
 
@@ -64,6 +68,7 @@ public class RecolteServiceImpl implements RecolteService {
     public ResponseRecolteDTO getRecolteById(Long recolteId) {
         Recolte recolte = recolteRepository.findById(recolteId)
                 .orElseThrow(() -> new EntityNotFoundException("Recolte not found with id: " + recolteId));
+
         return recolteMapper.recolteToResponseRecolteDTO(recolte);
     }
 
