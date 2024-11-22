@@ -28,8 +28,7 @@ public class Ferme {
     @OneToMany(mappedBy = "ferme", cascade = CascadeType.ALL, orphanRemoval = true)
     private List<Champ> champs;
 
-    @OneToMany(mappedBy = "ferme", cascade = CascadeType.ALL, orphanRemoval = true)
-    private List<Recolte> Recoltes;
+
 }
 
 

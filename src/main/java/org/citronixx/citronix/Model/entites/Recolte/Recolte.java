@@ -3,6 +3,7 @@ package org.citronixx.citronix.Model.entites.Recolte;
 import jakarta.persistence.*;
 import lombok.*;
 import org.citronixx.citronix.Model.Enum.Saison;
+import org.citronixx.citronix.Model.entites.Champ.Champ;
 import org.citronixx.citronix.Model.entites.DetailRecolte.DetailRecolte;
 import org.citronixx.citronix.Model.entites.Ferme.Ferme;
 import org.citronixx.citronix.Model.entites.Vente.Vente;
@@ -37,7 +38,7 @@ public class Recolte {
 
 
     @ManyToOne
-    @JoinColumn(name = "ferme_id", nullable = false)
-    private Ferme ferme;
+    @JoinColumn(name = "Champ_id", nullable = false)
+    private Champ champ;
 
 }

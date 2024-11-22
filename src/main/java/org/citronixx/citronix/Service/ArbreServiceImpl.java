@@ -70,7 +70,6 @@ public class ArbreServiceImpl implements ArbreService {
         int existingArbres = champ.getArbres().size();
         System.out.println("existingArbres: " + existingArbres);
 
-// Assuming champ.getSuperficie() returns the area in hectares
         double superficieHectares = champ.getSuperficie(); // in hectares
         double superficieM2 = superficieHectares * 10000; // Convert hectares to m²
 

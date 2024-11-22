@@ -19,5 +19,5 @@ public class ArbreDTO {
     @Past(message = "La date de plantation doit être une date passée.")
     private LocalDate datePlantation;
 
-  private ResponseChamp champ;
+     private ResponseChamp champ;
 }

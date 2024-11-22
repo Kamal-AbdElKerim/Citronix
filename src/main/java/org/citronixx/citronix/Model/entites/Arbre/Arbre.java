@@ -33,12 +33,10 @@ public class Arbre {
         return LocalDate.now().getYear() - datePlantation.getYear();
     }
 
-    // Utility method to determine if the tree is productive
     public boolean isProductive() {
         return calculateAge() <= 20;
     }
 
-    // Utility method to calculate productivity based on age
     public double calculateProductivity() {
         int age = calculateAge();
         if (age < 3) {

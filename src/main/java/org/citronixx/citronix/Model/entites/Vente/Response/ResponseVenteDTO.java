@@ -10,6 +10,7 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 import org.citronixx.citronix.Model.entites.Recolte.RecolteDTO;
 import org.citronixx.citronix.Model.entites.Recolte.Response.ResponseRecolte;
+import org.citronixx.citronix.Model.entites.Recolte.Response.ResponseRecolteDTO;
 
 import java.time.LocalDate;
 
@@ -29,5 +30,5 @@ public class ResponseVenteDTO {
 
     private String client;
 
-    private RecolteDTO recolte;
+    private ResponseRecolteDTO recolte;
 }

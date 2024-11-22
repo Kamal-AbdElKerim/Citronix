@@ -4,6 +4,7 @@ import jakarta.persistence.*;
 import lombok.*;
 import org.citronixx.citronix.Model.entites.Arbre.Arbre;
 import org.citronixx.citronix.Model.entites.Ferme.Ferme;
+import org.citronixx.citronix.Model.entites.Recolte.Recolte;
 
 import java.util.List;
 
@@ -28,6 +29,9 @@ public class Champ {
 
     @OneToMany(mappedBy = "champ", cascade = CascadeType.ALL, orphanRemoval = true)
     private List<Arbre> arbres;
+
+    @OneToMany(mappedBy = "champ", cascade = CascadeType.ALL, orphanRemoval = true)
+    private List<Recolte> Recoltes;
 }
 
 

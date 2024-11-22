@@ -3,11 +3,13 @@ package org.citronixx.citronix.Service;
 import org.citronixx.citronix.Exception.EntityNotFoundException;
 import org.citronixx.citronix.Exception.ValidationException;
 import org.citronixx.citronix.Model.MapStruct.RecolteMapper;
+import org.citronixx.citronix.Model.entites.Champ.Champ;
 import org.citronixx.citronix.Model.entites.DetailRecolte.DetailRecolte;
 import org.citronixx.citronix.Model.entites.Ferme.Ferme;
 import org.citronixx.citronix.Model.entites.Recolte.Recolte;
 import org.citronixx.citronix.Model.entites.Recolte.RecolteDTO;
 import org.citronixx.citronix.Model.entites.Recolte.Response.ResponseRecolteDTO;
+import org.citronixx.citronix.Repository.ChampRepository;
 import org.citronixx.citronix.Repository.FermeRepository;
 import org.citronixx.citronix.Repository.RecolteRepository;
 import org.citronixx.citronix.Service.Interface.RecolteService;
@@ -30,15 +32,18 @@ public class RecolteServiceImpl implements RecolteService {
     @Autowired
     private FermeRepository fermeRepository;
 
+    @Autowired
+    private ChampRepository champRepository;
+
     @Override
-    public ResponseRecolteDTO addRecolte(Long fermeId, RecolteDTO recolteDTO) {
+    public ResponseRecolteDTO addRecolte(Long ChampId, RecolteDTO recolteDTO) {
         // Check if the farm exists
-        Ferme ferme = fermeRepository.findById(fermeId)
-                .orElseThrow(() -> new EntityNotFoundException("Ferme not found with id: " + fermeId));
+        Champ champ = champRepository.findById(ChampId)
+                .orElseThrow(() -> new EntityNotFoundException("Champ not found with id: " + ChampId));
 
         // Check if a recolte for the same farm, season, and year already exists
-        if (recolteRepository.existsByFermeIdAndSaisonAndYear(
-                fermeId,
+        if (recolteRepository.existsByChampIdAndSaisonAndYear(
+                ChampId,
                 recolteDTO.getSaison(),
                 recolteDTO.getDateRecolte().getYear())) {
             throw new ValidationException("recolte", "A recolte with the same season and year already exists for this farm.");
@@ -47,7 +52,7 @@ public class RecolteServiceImpl implements RecolteService {
         // Map DTO to entity and set the farm
         Recolte recolte = recolteMapper.recolteDTOToRecolte(recolteDTO);
 
-        recolte.setFerme(ferme);
+        recolte.setChamp(champ);
 
         // Save and map back to DTO
         Recolte savedRecolte = recolteRepository.save(recolte);

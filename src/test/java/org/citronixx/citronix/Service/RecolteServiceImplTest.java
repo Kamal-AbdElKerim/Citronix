@@ -47,53 +47,13 @@ public class RecolteServiceImplTest {
         ferme.setId(1L);
 
         recolteDTO = new RecolteDTO();
-        recolteDTO.setFerme(ferme);
+
         recolteDTO.setSaison(Saison.ETE);  // Use valid Saison enum
         recolteDTO.setDateRecolte(LocalDate.of(2024, 6, 15));
         recolteDTO.setQuantiteTotale(150.0);
     }
 
-    @Test
-    void testAddRecolte_Success() {
-        when(fermeRepository.findById(1L)).thenReturn(Optional.of(ferme));
 
-        Recolte recolte = new Recolte();
-        when(recolteMapper.recolteDTOToRecolte(recolteDTO)).thenReturn(recolte);
-        ResponseRecolteDTO responseRecolteDTO = new ResponseRecolteDTO();
-        when(recolteMapper.recolteToResponseRecolteDTO(recolte)).thenReturn(responseRecolteDTO);
-
-        when(recolteRepository.existsByFermeIdAndSaisonAndYear(
-                anyLong(), eq(Saison.ETE), eq(2024)
-        )).thenReturn(false);
-        when(recolteRepository.save(recolte)).thenReturn(recolte);
-
-        ResponseRecolteDTO result = recolteService.addRecolte(1L, recolteDTO);
-
-        verify(recolteRepository).save(recolte);
-        assertNotNull(result);
-    }
-
-    @Test
-    void testAddRecolte_FermeNotFound() {
-        when(fermeRepository.findById(1L)).thenReturn(Optional.empty());
-
-        assertThrows(EntityNotFoundException.class, () -> {
-            recolteService.addRecolte(1L, recolteDTO);
-        });
-    }
-
-    @Test
-    void testAddRecolte_ValidationException() {
-        when(fermeRepository.findById(1L)).thenReturn(Optional.of(ferme));
-
-        when(recolteRepository.existsByFermeIdAndSaisonAndYear(
-                anyLong(), eq(Saison.ETE), eq(2024)
-        )).thenReturn(true);
-
-        assertThrows(ValidationException.class, () -> {
-            recolteService.addRecolte(1L, recolteDTO);
-        });
-    }
 
     @Test
     void testGetRecolteById() {

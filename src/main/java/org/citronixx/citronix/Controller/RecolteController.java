@@ -18,11 +18,11 @@ public class RecolteController {
     private RecolteServiceImpl recolteService;
 
     // Add a new Recolte
-    @PostMapping("/ferme/{fermeId}")
+    @PostMapping("/Champ/{ChampId}")
     public ResponseEntity<ResponseRecolteDTO> addRecolte(
             @RequestBody @Valid RecolteDTO recolteDTO ,
-                  @PathVariable Long fermeId) {
-        ResponseRecolteDTO createdRecolte = recolteService.addRecolte(fermeId , recolteDTO);
+                  @PathVariable Long ChampId) {
+        ResponseRecolteDTO createdRecolte = recolteService.addRecolte(ChampId , recolteDTO);
         return ResponseEntity.ok(createdRecolte);
     }
 
