@@ -4,6 +4,8 @@ import jakarta.persistence.*;
 import lombok.*;
 import org.citronixx.citronix.Model.Enum.Saison;
 import org.citronixx.citronix.Model.entites.DetailRecolte.DetailRecolte;
+import org.citronixx.citronix.Model.entites.Ferme.Ferme;
+import org.citronixx.citronix.Model.entites.Vente.Vente;
 
 import java.time.LocalDate;
 import java.util.List;
@@ -29,4 +31,13 @@ public class Recolte {
 
     @OneToMany(mappedBy = "recolte", cascade = CascadeType.ALL, orphanRemoval = true)
     private List<DetailRecolte> detailsRecolte;
+
+    @OneToOne(mappedBy = "recolte", cascade = CascadeType.ALL, orphanRemoval = true)
+    private Vente vente;
+
+
+    @ManyToOne
+    @JoinColumn(name = "ferme_id", nullable = false)
+    private Ferme ferme;
+
 }

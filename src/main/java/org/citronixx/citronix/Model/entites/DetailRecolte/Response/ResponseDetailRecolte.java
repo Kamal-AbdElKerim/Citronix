@@ -6,6 +6,8 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 import org.citronixx.citronix.Model.entites.Arbre.ArbreDTO;
 import org.citronixx.citronix.Model.entites.Arbre.Response.ResponseArbre;
+import org.citronixx.citronix.Model.entites.Recolte.Response.ResponseRecolte;
+import org.citronixx.citronix.Model.entites.Recolte.Response.ResponseRecolteDTO;
 
 
 @Data
@@ -15,6 +17,6 @@ import org.citronixx.citronix.Model.entites.Arbre.Response.ResponseArbre;
 public class ResponseDetailRecolte {
     private Long id;
     private double quantiteParArbre;
-  //  private RecolteDTO recolte;
-    private ResponseArbre arbre;
+    private ResponseRecolte recolte;
+   // private ResponseArbre arbre;
 }

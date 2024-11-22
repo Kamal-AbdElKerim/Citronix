@@ -2,13 +2,13 @@ package org.citronixx.citronix.Model.entites.Vente;
 
 import jakarta.persistence.*;
 import lombok.*;
-import org.citronixx.citronix.Model.Entity.Recolte.Recolte;
+import org.citronixx.citronix.Model.entites.Recolte.Recolte;
 
 import java.time.LocalDate;
 
 @Entity
 @Data
-@Builder
+@Builder(toBuilder = true)
 @NoArgsConstructor
 @AllArgsConstructor
 public class Vente {
@@ -19,10 +19,10 @@ public class Vente {
     private LocalDate date;
     private double prixUnitaire;
     private String client;
-
-    @ManyToOne
+    @OneToOne
     @JoinColumn(name = "recolte_id", nullable = false)
     private Recolte recolte;
+
 
 
 }

@@ -17,6 +17,7 @@ public class ResponseDetailRecolteDTO {
     private Long id;
     private double quantiteParArbre;
   //  private RecolteDTO recolte;
-    private ResponseArbre arbre;
+    private ArbreDTO arbre;
+
     private ResponseRecolte recolte;
 }

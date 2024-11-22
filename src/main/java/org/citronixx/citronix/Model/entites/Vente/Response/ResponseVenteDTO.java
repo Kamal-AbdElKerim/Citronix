@@ -1,11 +1,15 @@
-package org.citronixx.citronix.Model.entites.Vente;
+package org.citronixx.citronix.Model.entites.Vente.Response;
 
 import jakarta.validation.constraints.DecimalMin;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotNull;
 import jakarta.validation.constraints.PastOrPresent;
-import lombok.*;
+import lombok.AllArgsConstructor;
+import lombok.Builder;
+import lombok.Data;
+import lombok.NoArgsConstructor;
 import org.citronixx.citronix.Model.entites.Recolte.RecolteDTO;
+import org.citronixx.citronix.Model.entites.Recolte.Response.ResponseRecolte;
 
 import java.time.LocalDate;
 
@@ -13,16 +17,17 @@ import java.time.LocalDate;
 @Builder
 @NoArgsConstructor
 @AllArgsConstructor
-public class VenteDTO {
-    private Long id;
+public class ResponseVenteDTO {
 
+    private Long id;
 
     private LocalDate date;
 
-    @DecimalMin(value = "0.1", message = "Le prix unitaire doit être supérieur à 0.")
     private double prixUnitaire;
 
-    @NotBlank(message = "Le nom du client est obligatoire.")
+    private double revenu;
+
     private String client;
 
+    private RecolteDTO recolte;
 }

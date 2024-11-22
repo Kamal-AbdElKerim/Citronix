@@ -7,11 +7,11 @@ import java.util.List;
 
 public interface ChampService {
 
-    ResponseChampDTO addChampToFerme(Long fermeId, ChampDTO champDTO);
+    ChampDTO addChampToFerme(Long fermeId, ChampDTO champDTO);
 
-    List<ResponseChampDTO> getAllChamps();
+    List<ChampDTO> getAllChamps();
 
-    ResponseChampDTO getChampById(Long id);
+    ChampDTO getChampById(Long id);
 
     String deleteChamp(Long id);
 

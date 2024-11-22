@@ -7,6 +7,7 @@ import lombok.NoArgsConstructor;
 import org.citronixx.citronix.Model.entites.Champ.ChampDTO;
 import org.citronixx.citronix.Model.entites.Champ.Response.ResponseChamp;
 import org.citronixx.citronix.Model.entites.DetailRecolte.DetailRecolte;
+import org.citronixx.citronix.Model.entites.DetailRecolte.Response.ResponseDetailRecolte;
 
 import java.time.LocalDate;
 import java.util.List;
@@ -24,6 +25,8 @@ public class ResponseArbre {
     private Integer age;
    // private ResponseChamp champ;
 
+
+   private List<ResponseDetailRecolte> detailRecoltes ;
 
 
 }

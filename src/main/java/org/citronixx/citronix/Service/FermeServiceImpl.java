@@ -48,7 +48,6 @@ public class FermeServiceImpl implements FermeService {
         List<Ferme> fermes = fermeRepository.findAll();
 
 
-
         List<ResponseFermeDTO> ResponseFermeDTO = fermeMapper.fermeToResponseFermeDTO(fermes);
 
 

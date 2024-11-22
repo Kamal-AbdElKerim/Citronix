@@ -4,6 +4,7 @@ import jakarta.validation.constraints.Max;
 import jakarta.validation.constraints.Past;
 import lombok.*;
 import org.citronixx.citronix.Model.entites.Champ.ChampDTO;
+import org.citronixx.citronix.Model.entites.Champ.Response.ResponseChamp;
 
 import java.time.LocalDate;
 
@@ -18,5 +19,5 @@ public class ArbreDTO {
     @Past(message = "La date de plantation doit être une date passée.")
     private LocalDate datePlantation;
 
-    private ChampDTO champ;
+  private ResponseChamp champ;
 }

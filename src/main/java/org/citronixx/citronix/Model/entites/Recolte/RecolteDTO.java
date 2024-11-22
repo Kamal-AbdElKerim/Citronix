@@ -8,6 +8,7 @@ import jakarta.validation.constraints.PastOrPresent;
 import lombok.*;
 import org.citronixx.citronix.Model.Enum.Saison;
 import org.citronixx.citronix.Model.entites.DetailRecolte.DetailRecolteDTO;
+import org.citronixx.citronix.Model.entites.Ferme.Ferme;
 
 import java.time.LocalDate;
 import java.util.List;
@@ -30,4 +31,6 @@ public class RecolteDTO {
     @DecimalMin(value = "0.0", message = "La quantité totale récoltée doit être positive.")
     private double quantiteTotale;
     private List<DetailRecolteDTO> detailsRecolte;
+
+    private Ferme ferme;
 }
