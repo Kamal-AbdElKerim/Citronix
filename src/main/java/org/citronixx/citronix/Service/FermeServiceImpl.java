@@ -99,9 +99,8 @@ public class FermeServiceImpl implements FermeService {
 
        return fermeMapper.fermeToResponseFermeDTO(savedFerme);
    }
-
-
-    public List<ResponseFermeDTO> searchFermes(FermeSearchDTO searchDTO) {
+    @Override
+   public List<ResponseFermeDTO> searchFermes(FermeSearchDTO searchDTO) {
         CriteriaBuilder criteriaBuilder = entityManager.getCriteriaBuilder();
         CriteriaQuery<Ferme> criteriaQuery = criteriaBuilder.createQuery(Ferme.class);
         Root<Ferme> fermeRoot = criteriaQuery.from(Ferme.class);

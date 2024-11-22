@@ -6,6 +6,7 @@ import jakarta.validation.Valid;
 import org.citronixx.citronix.Model.entites.Champ.ChampDTO;
 import org.citronixx.citronix.Model.entites.Champ.Response.ResponseChampDTO;
 import org.citronixx.citronix.Service.ChampServiceImpl;
+import org.citronixx.citronix.Service.Interface.ChampService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -17,7 +18,7 @@ import java.util.List;
 public class ChampController {
 
     @Autowired
-    private ChampServiceImpl champService;
+    private ChampService champService;
 
     // Add a Champ to a Ferme
     @PostMapping("/ferme/{fermeId}")

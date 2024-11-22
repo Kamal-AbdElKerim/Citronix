@@ -5,6 +5,7 @@ import org.citronixx.citronix.Model.SearchDTO.FermeSearchDTO;
 import org.citronixx.citronix.Model.entites.Ferme.FermeDTO;
 import org.citronixx.citronix.Model.entites.Ferme.Response.ResponseFermeDTO;
 import org.citronixx.citronix.Service.FermeServiceImpl;
+import org.citronixx.citronix.Service.Interface.FermeService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -16,7 +17,7 @@ import java.util.List;
 public class FermeController {
 
     @Autowired
-    FermeServiceImpl fermeService;
+    FermeService fermeService;
 
 
     @GetMapping("/fermes")

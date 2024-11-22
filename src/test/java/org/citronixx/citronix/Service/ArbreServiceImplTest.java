@@ -11,6 +11,7 @@ import org.citronixx.citronix.Model.entites.Arbre.Response.ResponseArbreDTO;
 import org.citronixx.citronix.Model.entites.Champ.Champ;
 import org.citronixx.citronix.Repository.ArbreRepository;
 import org.citronixx.citronix.Repository.ChampRepository;
+import org.citronixx.citronix.Service.Interface.ArbreService;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.mockito.InjectMocks;
@@ -40,7 +41,7 @@ class ArbreServiceImplTest {
     private ChampMapper champMapper;
 
     @InjectMocks
-    private ArbreServiceImpl arbreService;
+    private ArbreService arbreService;
 
     @BeforeEach
     void setUp() {

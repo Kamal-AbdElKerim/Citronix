@@ -3,6 +3,7 @@ package org.citronixx.citronix.Controller;
 import jakarta.validation.Valid;
 import org.citronixx.citronix.Model.entites.Vente.VenteDTO;
 import org.citronixx.citronix.Model.entites.Vente.Response.ResponseVenteDTO;
+import org.citronixx.citronix.Service.Interface.VenteService;
 import org.citronixx.citronix.Service.VenteServiceImpl;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
@@ -15,7 +16,7 @@ import java.util.List;
 public class VenteController {
 
     @Autowired
-    VenteServiceImpl venteService;
+    VenteService venteService;
 
     @GetMapping()
         public ResponseEntity<List<ResponseVenteDTO>> getAllVentes() {

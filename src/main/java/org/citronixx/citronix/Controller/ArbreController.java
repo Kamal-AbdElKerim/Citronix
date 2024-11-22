@@ -4,6 +4,7 @@ import jakarta.validation.Valid;
 import org.citronixx.citronix.Model.entites.Arbre.ArbreDTO;
 import org.citronixx.citronix.Model.entites.Arbre.Response.ResponseArbreDTO;
 import org.citronixx.citronix.Service.ArbreServiceImpl;
+import org.citronixx.citronix.Service.Interface.ArbreService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -15,7 +16,7 @@ import java.util.List;
 public class ArbreController {
 
     @Autowired
-    private ArbreServiceImpl arbreService;
+    private ArbreService arbreService;
 
     // Add an Arbre to a Champ
     @PostMapping("/champ/{champId}")

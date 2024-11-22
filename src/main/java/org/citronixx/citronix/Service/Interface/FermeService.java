@@ -1,5 +1,6 @@
 package org.citronixx.citronix.Service.Interface;
 
+import org.citronixx.citronix.Model.SearchDTO.FermeSearchDTO;
 import org.citronixx.citronix.Model.entites.Ferme.FermeDTO;
 import org.citronixx.citronix.Model.entites.Ferme.Response.ResponseFermeDTO;
 
@@ -18,4 +19,6 @@ public interface FermeService {
    // List<Ferme> findByNom(String nom);
 
     ResponseFermeDTO updateFerme(Long id, FermeDTO fermeDTO);
+
+    List<ResponseFermeDTO> searchFermes(FermeSearchDTO searchDTO);
 }

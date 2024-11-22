@@ -6,6 +6,7 @@ import org.citronixx.citronix.Model.entites.DetailRecolte.DetailRecolte;
 import org.citronixx.citronix.Model.entites.DetailRecolte.DetailRecolteDTO;
 import org.citronixx.citronix.Model.entites.DetailRecolte.Response.ResponseDetailRecolteDTO;
 import org.citronixx.citronix.Service.DetailRecolteServiceImpl;
+import org.citronixx.citronix.Service.Interface.DetailRecolteService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -17,7 +18,7 @@ import java.util.List;
 public class DetailRecolteController {
 
     @Autowired
-    private DetailRecolteServiceImpl detailRecolteService;
+    private DetailRecolteService detailRecolteService;
 
     // Add a new DetailRecolte to a Champ
     @PostMapping("arbre/{arbreId}/Recolte/{recolteID}")

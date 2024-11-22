@@ -3,6 +3,7 @@ package org.citronixx.citronix.Controller;
 import jakarta.validation.Valid;
 import org.citronixx.citronix.Model.entites.Recolte.RecolteDTO;
 import org.citronixx.citronix.Model.entites.Recolte.Response.ResponseRecolteDTO;
+import org.citronixx.citronix.Service.Interface.RecolteService;
 import org.citronixx.citronix.Service.RecolteServiceImpl;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
@@ -15,7 +16,7 @@ import java.util.List;
 public class RecolteController {
 
     @Autowired
-    private RecolteServiceImpl recolteService;
+    private RecolteService recolteService;
 
     // Add a new Recolte
     @PostMapping("/Champ/{ChampId}")
